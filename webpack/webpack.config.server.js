@@ -5,7 +5,7 @@ import { getIfUtils, removeEmpty } from 'webpack-config-utils';
 import CopyPlugin from "copy-webpack-plugin";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
-import config from '../template/build.config';
+import config from '../templates/build.config';
 
 const {
     BASE_PATH = '/',

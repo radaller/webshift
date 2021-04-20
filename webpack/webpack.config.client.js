@@ -4,7 +4,7 @@ import { getIfUtils, removeEmpty } from 'webpack-config-utils';
 import { StatsWriterPlugin } from 'webpack-stats-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
-import config from '../template/build.config';
+import config from '../templates/build.config';
 
 const {
     BASE_PATH = '/',

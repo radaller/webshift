@@ -4,6 +4,10 @@
   "bin": {
     "webshift": "./dist/index.js"
   },
+  "files": [
+      "dist/**/*",
+      "templates/**/*"
+  ],
   "dependencies": {
     "@babel/core": "^7.13.15",
     "@babel/preset-env": "^7.13.15",
