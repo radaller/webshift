@@ -25,7 +25,7 @@ const args = arg(
 );
 
 if (args['--version']) {
-    console.log(`Radaller v${VERSION}`)
+    console.log(`webshift v${VERSION}`)
     process.exit(0)
 }
 
@@ -34,14 +34,14 @@ const foundCommand = Boolean(commands[args._[0]]);
 if (!foundCommand && args['--help']) {
     console.log(`
         Usage
-          $ radaller <command>
+          $ webshift <command>
         Available commands
           ${Object.keys(commands).join(', ')}
         Options
           --version, -v   Version number
           --help, -h      Displays this message
         For more information run a command with the --help flag
-          $ radaller build --help
+          $ webshift build --help
     `);
     process.exit(0);
 }
@@ -50,12 +50,12 @@ const forwardedArgs = foundCommand ? args._.slice(1) : args._;
 
 if (!foundCommand) {
     console.error(
-        `[Error] No command is defined. Please use $radaller <${Object.keys(commands).join('|')}>`
+        `[Error] No command is defined. Please use $webshift <${Object.keys(commands).join('|')}>`
     );
     process.exit(0);
 }
 
-// Cover `radaller <subcommand> --help` case
+// Cover `webshift <subcommand> --help` case
 if (args['--help']) {
     forwardedArgs.push('--help');
 }
