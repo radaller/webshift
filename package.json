@@ -1,0 +1,63 @@
+{
+  "name": "webshift",
+  "version": "0.9.0",
+  "bin": {
+    "webshift": "./dist/index.js"
+  },
+  "dependencies": {
+    "@babel/core": "^7.13.15",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/preset-react": "^7.12.13",
+    "arg": "^5.0.0",
+    "babel-loader": "^8.1.0",
+    "copy-webpack-plugin": "^8.1.1",
+    "express": "^4.17.1",
+    "webpack": "^5.31.2",
+    "webpack-bundle-analyzer": "^4.4.0",
+    "webpack-config-utils": "^2.3.1",
+    "webpack-dev-middleware": "^4.1.0",
+    "webpack-hot-middleware": "^2.25.0",
+    "webpack-hot-server-middleware": "^0.6.1",
+    "webpack-node-externals": "^2.5.2",
+    "webpack-stats-plugin": "^1.0.3"
+  },
+  "scripts": {
+    "start": "NODE_ENV=development babel-node scripts/dev-server.js",
+    "build:prod": "NODE_ENV=production babel-node scripts/build.js",
+    "build:scripts": "NODE_ENV=production babel-node build-scripts.js",
+    "build:docker": "docker build -t radaller:latest .",
+    "build:start": "(cd build && node server.js)"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/node": "^7.13.13",
+    "@emotion/react": "^11.1.5",
+    "@emotion/styled": "^11.3.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "styled-system": "^5.1.5"
+  }
+}
