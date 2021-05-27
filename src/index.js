@@ -6,12 +6,12 @@ export default (App, Document, Fragment) => {
     Fragment = Fragment || FragmentDefault;
 
     if (SERVER) {
-        const Renderer = require('./_render');
+        const Renderer = require('./_render').default;
         return Renderer(App, Document, Fragment);
     }
 
     if (CLIENT) {
-        const client = require('./_client');
+        const client = require('./_client').default;
         client(App, Document, Fragment);
     }
 }
