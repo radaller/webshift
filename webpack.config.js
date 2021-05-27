@@ -51,7 +51,7 @@ export default removeEmpty({
             "React": "react",
         }),
         new webpack.BannerPlugin({
-            include: 'index',
+            include: 'bin',
             banner: "#!/usr/bin/env node",
             raw: true
         }),
