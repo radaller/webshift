@@ -60,6 +60,7 @@ export default removeEmpty({
             "React": "react",
         }),
         new webpack.DefinePlugin(removeEmpty({
+            CLIENT: JSON.stringify(false),
             SERVER: JSON.stringify(true),
             BASE_PATH: JSON.stringify(config.BASE_PATH),
             FRAGMENT_ID: JSON.stringify(config.FRAGMENT_ID),

@@ -5,12 +5,13 @@ import express from 'express';
 import Renderer from "./_render";
 
 export default (App, Document, Fragment) => {
-    const HOST = process.env.HOST || 'localhost';
-    const PORT = process.env.PORT || 3040;
 
     const render = Renderer(App, Document, Fragment);
 
     if (PRODUCTION) {
+        const HOST = process.env.HOST || 'localhost';
+        const PORT = process.env.PORT || 3040;
+
         const clientStats = JSON.parse(fs.readFileSync('./stats.json', 'utf8'));
 
         const app = express();
