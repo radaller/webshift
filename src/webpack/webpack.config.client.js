@@ -11,7 +11,7 @@ const { ifDevelopment } = getIfUtils(process.env.NODE_ENV);
 export default removeEmpty({
     name: 'client',
     entry: {
-        main: `${__dirname}/src/App.js`,
+        main: `./src/App.js`,
     },
     mode: 'development',
     //mode: ifDevelopment('development', 'production'),

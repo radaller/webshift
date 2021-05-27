@@ -13,7 +13,7 @@ const { ifDevelopment } = getIfUtils(process.env.NODE_ENV);
 export default removeEmpty({
     name: 'server',
     devtool: ifDevelopment('source-map'),
-    entry: `${__dirname}/src/App.js`,
+    entry: `./src/App.js`,
     //mode: ifDevelopment('development', 'production'),
     mode: 'development',
 
