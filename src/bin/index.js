@@ -1,16 +1,15 @@
 import path from 'path';
 import arg from 'arg';
 import build from './build';
+import dev from './dev';
 
 const VERSION = '1.0.0';
 
 const defaultCommand = 'dev';
 const commands = {
-    //build: import( /* webpackIgnore: true */'./build.js'),
     build,
-    dev: () => {}
+    dev
 };
-//const config = import( /* webpackIgnore: true */ './build.config.js');
 
 const args = arg(
     {

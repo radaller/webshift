@@ -34,6 +34,8 @@ app.use(serverConfig.output.publicPath, webpackDevMiddleware(compiler, options))
 app.use(serverConfig.output.publicPath, webpackHotMiddleware(compiler.compilers.find(cmp => cmp.name === 'client')));
 app.use(serverConfig.output.publicPath, webpackHotServerMiddleware(compiler));
 
-app.listen(PORT, HOST, () => {
-    console.log(`Server started: http://${HOST}:${PORT}`);
-});
+export default (argv) => {
+    app.listen(PORT, HOST, () => {
+        console.log(`Server started: http://${HOST}:${PORT}`);
+    });
+}

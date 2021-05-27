@@ -20,7 +20,13 @@ export default removeEmpty({
     //externals: ['react'],
     //externals: ['react'],
 
-    resolve,
+    resolve: {
+        alias: {
+            'fs': false,
+            'express': false,
+            'path': false,
+        },
+    },
 
     output: {
         path: path.resolve('build/public'),
