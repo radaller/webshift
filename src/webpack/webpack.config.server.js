@@ -7,7 +7,7 @@ import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
 import { config, resolve } from './init';
 
-const { ifDevelopment } = getIfUtils(process.env.NODE_ENV);
+const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV);
 
 
 export default removeEmpty({
@@ -60,6 +60,7 @@ export default removeEmpty({
             "React": "react",
         }),
         new webpack.DefinePlugin(removeEmpty({
+            PRODUCTION: JSON.stringify(ifProduction()),
             CLIENT: JSON.stringify(false),
             SERVER: JSON.stringify(true),
             BASE_PATH: JSON.stringify(config.BASE_PATH),

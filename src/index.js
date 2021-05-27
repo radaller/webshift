@@ -6,8 +6,8 @@ export default (App, Document, Fragment) => {
     Fragment = Fragment || FragmentDefault;
 
     if (SERVER) {
-        const Renderer = require('./_render').default;
-        return Renderer(App, Document, Fragment);
+        const server = require('./_server').default;
+        return server(App, Document, Fragment);
     }
 
     if (CLIENT) {
