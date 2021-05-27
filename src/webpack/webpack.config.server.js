@@ -19,10 +19,10 @@ export default removeEmpty({
 
     target: 'node',
 
-    // externals: ifDevelopment([
-    //     nodeExternals()
-    // ]),
-    externals: [nodeExternals()],
+    externals: ifDevelopment([
+        nodeExternals()
+    ]),
+    //externals: [nodeExternals()],
 
     resolve,
 
