@@ -1,12 +1,16 @@
+import path from 'path';
 import arg from 'arg';
-import child_process from 'child_process';
+import build from './build';
 
 const VERSION = '1.0.0';
 
+const defaultCommand = 'dev';
 const commands = {
-    build: () => {},
+    //build: import( /* webpackIgnore: true */'./build.js'),
+    build,
     dev: () => {}
 };
+//const config = import( /* webpackIgnore: true */ './build.config.js');
 
 const args = arg(
     {
@@ -46,6 +50,7 @@ if (!foundCommand && args['--help']) {
     process.exit(0);
 }
 
+const command = foundCommand ? args._[0] : defaultCommand;
 const forwardedArgs = foundCommand ? args._.slice(1) : args._;
 
 if (!foundCommand) {
@@ -59,3 +64,21 @@ if (!foundCommand) {
 if (args['--help']) {
     forwardedArgs.push('--help');
 }
+
+process.on('SIGTERM', () => process.exit(0));
+process.on('SIGINT', () => process.exit(0));
+console.log(forwardedArgs);
+console.log(process.cwd())
+commands[command](forwardedArgs);
+
+// const child = spawn('node', [path.resolve(__dirname, 'build.js')]);
+//
+// child.on('exit', (code) => {
+//     console.log(`Child process exited with code ${code}`);
+// });
+// child.stdout.on('data', (data) => {
+//     console.log(`stdout: ${data}`);
+// });
+// child.stderr.on('data', (data) => {
+//     console.log(`stderr: ${data}`);
+// });

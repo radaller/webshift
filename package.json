@@ -9,8 +9,8 @@
     "templates/**/*"
   ],
   "dependencies": {
-    "@babel/core": "^7.13.15",
-    "@babel/preset-env": "^7.13.15",
+    "@babel/core": "^7.14.2",
+    "@babel/preset-env": "^7.14.2",
     "@babel/preset-react": "^7.12.13",
     "arg": "^5.0.0",
     "babel-loader": "^8.1.0",
@@ -28,7 +28,7 @@
   "scripts": {
     "start": "NODE_ENV=development babel-node scripts/dev-server.js",
     "build:prod": "NODE_ENV=production babel-node scripts/build.js",
-    "build:scripts": "NODE_ENV=production babel-node build-scripts.js",
+    "build:scripts": "NODE_ENV=production babel-node build-scripts.js && chmod +x dist/*",
     "build:docker": "docker build -t webshift:latest .",
     "build:start": "(cd build && node server.js)"
   },
@@ -57,11 +57,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/node": "^7.13.13",
-    "@emotion/react": "^11.1.5",
-    "@emotion/styled": "^11.3.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "styled-system": "^5.1.5"
+    "@babel/node": "^7.14.2",
+    "webpack-merge": "^5.7.3"
   }
 }

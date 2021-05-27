@@ -4,29 +4,28 @@ import { getIfUtils, removeEmpty } from 'webpack-config-utils';
 import { StatsWriterPlugin } from 'webpack-stats-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
-import config from '../templates/build.config';
-
-const {
-    BASE_PATH = '/',
-    FRAGMENT_ID = 'root'
-} = config;
+import {config, resolve} from './init';
 
 const { ifDevelopment } = getIfUtils(process.env.NODE_ENV);
 
 export default removeEmpty({
     name: 'client',
     entry: {
-        main: './src/client.js',
+        main: `${__dirname}/_client.js`,
     },
-    mode: ifDevelopment('development', 'production'),
+    mode: 'development',
+    //mode: ifDevelopment('development', 'production'),
 
     target: 'web',
     //externals: ['react'],
+    //externals: ['react'],
+
+    resolve,
 
     output: {
         path: path.resolve('build/public'),
         filename: 'js/[name].[chunkhash].js',
-        publicPath: BASE_PATH,
+        publicPath: config.BASE_PATH,
         assetModuleFilename: 'img/[name].[contenthash][ext][query]',
     },
 
@@ -61,8 +60,8 @@ export default removeEmpty({
             "React": "react",
         }),
         new webpack.DefinePlugin({
-            BASE_PATH: JSON.stringify(BASE_PATH),
-            FRAGMENT_ID: JSON.stringify(FRAGMENT_ID),
+            BASE_PATH: JSON.stringify(config.BASE_PATH),
+            FRAGMENT_ID: JSON.stringify(config.FRAGMENT_ID),
         }),
         new StatsWriterPlugin({
             filename: '../stats.json',

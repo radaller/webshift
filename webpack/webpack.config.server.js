@@ -5,31 +5,37 @@ import { getIfUtils, removeEmpty } from 'webpack-config-utils';
 import CopyPlugin from "copy-webpack-plugin";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
-import config from '../templates/build.config';
-
-const {
-    BASE_PATH = '/',
-    FRAGMENT_ID = 'root'
-} = config;
+import { config, resolve } from './init';
 
 const { ifDevelopment } = getIfUtils(process.env.NODE_ENV);
+
 
 export default removeEmpty({
     name: 'server',
     devtool: ifDevelopment('source-map'),
-    entry: ifDevelopment('./src/_render.js', './src/server.js'),
-    mode: ifDevelopment('development', 'production'),
+    entry: ifDevelopment(`${__dirname}/_render.js`, `${__dirname}/_server.js`),
+    //mode: ifDevelopment('development', 'production'),
+    mode: 'development',
 
     target: 'node',
 
-    externals: ifDevelopment([nodeExternals()]),
+    // externals: ifDevelopment([
+    //     nodeExternals()
+    // ]),
+    externals: [nodeExternals()],
+
+    resolve,
 
     output: {
         path: path.resolve('build'),
         filename: 'server.js',
         libraryTarget: 'umd',
-        publicPath: BASE_PATH,
+        publicPath: config.BASE_PATH,
         assetModuleFilename: 'img/[name].[contenthash][ext][query]',
+    },
+
+    optimization: {
+        minimize: false,
     },
 
     module: {
@@ -54,12 +60,13 @@ export default removeEmpty({
             "React": "react",
         }),
         new webpack.DefinePlugin(removeEmpty({
-            BASE_PATH: JSON.stringify(BASE_PATH),
-            FRAGMENT_ID: JSON.stringify(FRAGMENT_ID),
+            BASE_PATH: JSON.stringify(config.BASE_PATH),
+            FRAGMENT_ID: JSON.stringify(config.FRAGMENT_ID),
         })),
         new CopyPlugin({
             patterns: [
-                { from: "src/assets", to: "public/img/[name].[contenthash][ext]" },
+                { from: "src/*.png", to: "public/img/[name].[contenthash][ext]" },
+                { from: "src/*.ico", to: "public/img/[name].[contenthash][ext]" },
             ],
         }),
         new BundleAnalyzerPlugin({

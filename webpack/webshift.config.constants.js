@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     FRAGMENT_ID: 'root-header',
     BASE_PATH: '/header/',
     CLIENT_EXTERNALS: [
