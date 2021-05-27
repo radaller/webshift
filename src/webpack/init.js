@@ -13,12 +13,6 @@ export const config = merge(defaultConfig, customConfig);
 
 export const resolve = {
     alias: {
-        'react': 'react',
-        'react-dom': 'react-dom',
-        'webshift/app': `${process.cwd()}/src/App.js`,
-        'webshift/render': `${__dirname}/_render.js`,
-        'webshift/server': `${__dirname}/_server.js`,
-        'webshift/document': `${__dirname}/_document.js`,
-        'webshift/fragment': `${__dirname}/_fragment.js`,
+
     }
 };

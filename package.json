@@ -1,12 +1,11 @@
 {
   "name": "webshift",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "bin": {
-    "webshift": "./dist/index.js"
+    "webshift": "./dist/bin.js"
   },
   "files": [
-    "dist/**/*",
-    "templates/**/*"
+    "dist/**/*"
   ],
   "dependencies": {
     "@babel/core": "^7.14.2",
@@ -27,10 +26,8 @@
   },
   "scripts": {
     "start": "NODE_ENV=development babel-node scripts/dev-server.js",
-    "build:prod": "NODE_ENV=production babel-node scripts/build.js",
-    "build:scripts": "NODE_ENV=production babel-node build-scripts.js && chmod +x dist/*",
-    "build:docker": "docker build -t webshift:latest .",
-    "build:start": "(cd build && node server.js)"
+    "build": "NODE_ENV=production babel-node build-scripts.js && chmod +x dist/*",
+    "build:docker": "docker build -t webshift:latest ."
   },
   "eslintConfig": {
     "extends": [

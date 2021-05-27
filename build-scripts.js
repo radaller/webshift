@@ -1,5 +1,5 @@
 import webpack from 'webpack';
-import config from './webpack/webpack.config.scripts';
+import config from './webpack.config';
 
 const compiler = webpack(config);
 

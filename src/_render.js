@@ -1,22 +1,23 @@
 import { renderToString } from "react-dom/server";
 
-import Document from "webshift/document";
-import Fragment from "webshift/fragment";
-
-export default ({ clientStats }) => {
+export default (App, Document, Fragment) => ({ clientStats }) => {
     return (req, res) => {
         let htmlString = '';
 
         const esi_enabled = req.header('esi') === 'true';
         if (esi_enabled) {
             htmlString = renderToString(
-                <Fragment clientStats={ clientStats } />
+                <Fragment clientStats={ clientStats } >
+                    <App/>
+                </Fragment>
             );
         } else {
             htmlString = '<!DOCTYPE html>' +
                 renderToString(
                     <Document>
-                        <Fragment clientStats={ clientStats } />
+                        <Fragment clientStats={ clientStats } >
+                            <App/>
+                        </Fragment>
                     </Document>
                 );
         }

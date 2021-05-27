@@ -1,32 +1,41 @@
 import path from 'path';
+import nodeExternals from 'webpack-node-externals';
 import webpack from 'webpack';
 import { getIfUtils, removeEmpty } from 'webpack-config-utils';
-import { StatsWriterPlugin } from 'webpack-stats-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import CopyPlugin from "copy-webpack-plugin";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
-import {config, resolve} from './init';
+import { config, resolve } from './init';
 
 const { ifDevelopment } = getIfUtils(process.env.NODE_ENV);
 
-export default removeEmpty({
-    name: 'client',
-    entry: {
-        main: `${__dirname}/_client.js`,
-    },
-    mode: 'development',
-    //mode: ifDevelopment('development', 'production'),
 
-    target: 'web',
-    //externals: ['react'],
-    //externals: ['react'],
+export default removeEmpty({
+    name: 'server',
+    devtool: ifDevelopment('source-map'),
+    entry: `${__dirname}/src/App.js`,
+    //mode: ifDevelopment('development', 'production'),
+    mode: 'development',
+
+    target: 'node',
+
+    // externals: ifDevelopment([
+    //     nodeExternals()
+    // ]),
+    externals: [nodeExternals()],
 
     resolve,
 
     output: {
-        path: path.resolve('build/public'),
-        filename: 'js/[name].[chunkhash].js',
+        path: path.resolve('build'),
+        filename: 'server.js',
+        libraryTarget: 'umd',
         publicPath: config.BASE_PATH,
         assetModuleFilename: 'img/[name].[contenthash][ext][query]',
+    },
+
+    optimization: {
+        minimize: false,
     },
 
     module: {
@@ -40,39 +49,30 @@ export default removeEmpty({
                 test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
                 exclude: /node_modules/,
                 type: 'asset/resource',
-            },
-        ]
-    },
-    optimization: {
-        splitChunks: {
-            cacheGroups: {
-                vendor: {
-                    chunks: 'all',
-                    name: 'vendor',
-                    test: /[\\/]node_modules[\\/]/,
-                    reuseExistingChunk: true,
+                generator: {
+                    emit: false,
                 },
             },
-        },
+        ]
     },
     plugins: [
         new webpack.ProvidePlugin({
             "React": "react",
         }),
-        new webpack.DefinePlugin({
+        new webpack.DefinePlugin(removeEmpty({
+            SERVER: JSON.stringify(true),
             BASE_PATH: JSON.stringify(config.BASE_PATH),
             FRAGMENT_ID: JSON.stringify(config.FRAGMENT_ID),
-        }),
-        new StatsWriterPlugin({
-            filename: '../stats.json',
-            fields: [
-                'publicPath',
-                'assetsByChunkName',
+        })),
+        new CopyPlugin({
+            patterns: [
+                { from: "src/*.png", to: "public/img/[name].[contenthash][ext]" },
+                { from: "src/*.ico", to: "public/img/[name].[contenthash][ext]" },
             ],
         }),
         new BundleAnalyzerPlugin({
             analyzerMode: 'static',
-            reportFilename: path.resolve(`build/analyze/client.html`),
+            reportFilename: path.resolve(`build/analyze/server.html`),
             openAnalyzer: false,
         }),
     ],
