@@ -1,18 +1,16 @@
-import webpack from 'webpack';
-import config from '../webpack/webpack.config.init';
+import fs from 'fs-extra';
 
 export default (argv) => {
-    console.log("init");
-    const compiler = webpack(config);
-    compiler.run((error, stats) => {
-        if (stats) {
-            process.stdout.write(`${stats.toString({})}\n`);
-            if (stats.hasErrors()) {
-                process.exit(1);
-            }
-        }
-        if (error) {
-            process.stderr.write(error);
-        }
-    });
+    const srcDir = `${__dirname}/templates/react-emotion`;
+    const destDir = `${process.cwd()}`;
+
+    try {
+        fs.copySync(srcDir, destDir);
+        console.log('success!');
+    } catch (err) {
+        console.log(srcDir);
+        console.log(destDir);
+        console.log("error!");
+        console.error(err);
+    }
 };

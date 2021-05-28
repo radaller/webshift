@@ -10,9 +10,3 @@ try {
 }
 
 export const config = merge(defaultConfig, customConfig);
-
-export const resolve = {
-    alias: {
-
-    }
-};

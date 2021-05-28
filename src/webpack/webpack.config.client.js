@@ -4,7 +4,7 @@ import { getIfUtils, removeEmpty } from 'webpack-config-utils';
 import { StatsWriterPlugin } from 'webpack-stats-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
-import {config, resolve} from './init';
+import { config } from './init';
 
 const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV);
 
