@@ -7,15 +7,14 @@ import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
 import { config } from './init';
 
-const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV);
+const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV || 'development');
 
 
 export default removeEmpty({
     name: 'server',
     devtool: ifDevelopment('source-map'),
     entry: `${process.cwd()}/src/App.js`,
-    //mode: ifDevelopment('development', 'production'),
-    mode: 'development',
+    mode: ifDevelopment('development', 'production'),
 
     target: 'node',
 

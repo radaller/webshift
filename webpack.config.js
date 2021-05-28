@@ -4,10 +4,7 @@ import nodeExternals from 'webpack-node-externals';
 import { getIfUtils, removeEmpty } from 'webpack-config-utils';
 import CopyPlugin from "copy-webpack-plugin";
 
-const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV);
-
-console.log(ifDevelopment());
-console.log(ifProduction());
+const { ifDevelopment } = getIfUtils(process.env.NODE_ENV || 'development');
 
 export default removeEmpty({
     name: 'scripts',

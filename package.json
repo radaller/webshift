@@ -29,8 +29,8 @@
     "webpack-stats-plugin": "^1.0.3"
   },
   "scripts": {
-    "start": "NODE_ENV=development babel-node scripts/dev-server.js",
-    "build": "NODE_ENV=production babel-node build-scripts.js && chmod +x dist/*",
+    "start": "",
+    "build": "babel-node build-scripts.js && chmod +x dist/*",
     "build:docker": "docker build -t webshift:latest ."
   },
   "eslintConfig": {

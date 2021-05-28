@@ -6,18 +6,16 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 import { config } from './init';
 
-const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV);
+const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV || 'development');
 
 export default removeEmpty({
     name: 'client',
     entry: {
         main: `${process.cwd()}/src/App.js`,
     },
-    mode: 'development',
-    //mode: ifDevelopment('development', 'production'),
+    mode: ifDevelopment('development', 'production'),
 
     target: 'web',
-    //externals: ['react'],
     //externals: ['react'],
 
     resolve: {
