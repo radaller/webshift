@@ -1,14 +1,15 @@
-import path from 'path';
 import arg from 'arg';
 import build from './build';
 import dev from './dev';
+import init from './init';
 
 const VERSION = '1.0.0';
 
 const defaultCommand = 'dev';
 const commands = {
     build,
-    dev
+    dev,
+    init
 };
 
 const args = arg(
@@ -66,18 +67,4 @@ if (args['--help']) {
 
 process.on('SIGTERM', () => process.exit(0));
 process.on('SIGINT', () => process.exit(0));
-console.log(forwardedArgs);
-console.log(process.cwd())
 commands[command](forwardedArgs);
-
-// const child = spawn('node', [path.resolve(__dirname, 'build.js')]);
-//
-// child.on('exit', (code) => {
-//     console.log(`Child process exited with code ${code}`);
-// });
-// child.stdout.on('data', (data) => {
-//     console.log(`stdout: ${data}`);
-// });
-// child.stderr.on('data', (data) => {
-//     console.log(`stderr: ${data}`);
-// });

@@ -5,16 +5,7 @@ const compiler = webpack(config);
 
 compiler.run((error, stats) => {
     if (stats) {
-        process.stdout.write(`${stats.toString({
-            timings: true,
-            hash: false,
-            chunks: false,
-            chunkModules: false,
-            modules: false,
-            entrypoints: true,
-            warnings: false,
-            assets: false,
-        })}\n`);
+        process.stdout.write(`${stats.toString({})}\n`);
         if (stats.hasErrors()) {
             process.exit(1);
         }

@@ -1,3 +1,4 @@
+import webshift from 'webshift';
 import styled from '@emotion/styled';
 import { ThemeProvider } from '@emotion/react';
 import {
@@ -81,6 +82,7 @@ function App() {
         e.preventDefault();
         console.log('The link was clicked.');
     }
+
     return (
         <ThemeProvider theme={ theme }>
             <Bar className={"header"}>
@@ -96,4 +98,4 @@ function App() {
     );
 }
 
-export default App;
+export default webshift(App);

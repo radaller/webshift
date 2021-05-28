@@ -1,12 +1,13 @@
 {
   "name": "webshift",
-  "version": "0.24.0",
+  "version": "0.25.0",
   "bin": {
     "webshift": "./dist/bin.js"
   },
   "main": "./dist/index.js",
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "dist/templates/**/*"
   ],
   "dependencies": {
     "@babel/core": "^7.14.2",
