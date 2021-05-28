@@ -2,9 +2,8 @@ import webpack from 'webpack';
 import serverConfig from '../webpack/webpack.config.server';
 import clientConfig from '../webpack/webpack.config.client';
 
-const compiler = webpack([clientConfig, serverConfig]);
-
 export default (argv) => {
+    const compiler = webpack([clientConfig, serverConfig]);
     compiler.run((error, stats) => {
         if (stats) {
             process.stdout.write(`${stats.toString({

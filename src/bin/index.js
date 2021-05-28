@@ -7,9 +7,9 @@ const VERSION = '1.0.0';
 
 const defaultCommand = 'dev';
 const commands = {
-    build,
+    init,
     dev,
-    init
+    build,
 };
 
 const args = arg(
@@ -52,6 +52,7 @@ if (!foundCommand && args['--help']) {
 
 const command = foundCommand ? args._[0] : defaultCommand;
 const forwardedArgs = foundCommand ? args._.slice(1) : args._;
+console.log(args);
 
 if (!foundCommand) {
     console.error(

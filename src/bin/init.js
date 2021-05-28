@@ -1,9 +1,9 @@
 import webpack from 'webpack';
 import config from '../webpack/webpack.config.init';
 
-const compiler = webpack(config);
-
 export default (argv) => {
+    console.log("init");
+    const compiler = webpack(config);
     compiler.run((error, stats) => {
         if (stats) {
             process.stdout.write(`${stats.toString({})}\n`);
