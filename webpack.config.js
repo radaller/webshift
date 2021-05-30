@@ -12,13 +12,15 @@ export default removeEmpty({
     entry: {
         index: './src/index.js',
         bin: './src/bin/index.js',
+        server: './src/_server.js',
+        client: './src/_client.js',
     },
     mode: ifDevelopment('development', 'production'),
 
     target: 'node',
 
     externalsType: 'umd',
-    externals: [nodeExternals(), 'react', 'react-dom', /^react-dom\/.+$/],
+    externals: [nodeExternals(), 'react', 'react-dom', /^react-dom\/.+$/, /^@webshift\/.+$/],
     //externals: [nodeExternals(), /^webshift\/.+$/,],
 
     output: {
@@ -48,9 +50,6 @@ export default removeEmpty({
     },
 
     plugins: [
-        new webpack.ProvidePlugin({
-            "React": "react",
-        }),
         new webpack.BannerPlugin({
             include: 'bin',
             banner: "#!/usr/bin/env node",

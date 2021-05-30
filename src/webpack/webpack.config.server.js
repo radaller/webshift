@@ -14,16 +14,22 @@ export default removeEmpty({
     name: 'server',
     devtool: ifDevelopment('source-map'),
     entry: `${process.cwd()}/src/App.js`,
+    resolve: {
+        alias: {
+            '@webshift/core': `./server.js`,
+        },
+    },
     mode: ifDevelopment('development', 'production'),
 
     target: 'node',
 
+    externalsType: 'umd',
     externals: ifDevelopment([
-        nodeExternals()
+        nodeExternals({
+            allowlist: ['webshift', '@webshift/core']
+        })
     ]),
     //externals: [nodeExternals()],
-
-    resolve,
 
     output: {
         path: path.resolve('build'),

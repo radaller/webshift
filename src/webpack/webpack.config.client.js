@@ -13,18 +13,19 @@ export default removeEmpty({
     entry: {
         main: `${process.cwd()}/src/App.js`,
     },
+    resolve: {
+        alias: {
+            //'fs': false,
+            //'express': false,
+            //'path': false,
+            '@webshift/core': `./client.js`,
+        },
+    },
     mode: ifDevelopment('development', 'production'),
 
     target: 'web',
+    externalsType: 'umd',
     //externals: ['react'],
-
-    resolve: {
-        alias: {
-            'fs': false,
-            'express': false,
-            'path': false,
-        },
-    },
 
     output: {
         path: path.resolve('build/public'),

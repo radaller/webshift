@@ -1,6 +1,6 @@
 {
   "name": "webshift",
-  "version": "0.37.0",
+  "version": "0.47.0",
   "bin": {
     "webshift": "./dist/bin.js"
   },

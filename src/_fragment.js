@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default (props) => {
     const clientStats = props.clientStats;
     return (
