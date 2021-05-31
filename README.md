@@ -11,7 +11,7 @@
 
 ## Quick Start
 
-> ###(Optional) Create a working directory
+> ### (Optional) Create a working directory
 ```bash
 mkdir web-fragment && cd ./web-fragment
 ```
