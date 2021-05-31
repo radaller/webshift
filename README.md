@@ -20,8 +20,8 @@ https://github.com/vercel/next.js/issues/8963
 ```mkdir web-fragment && cd ./web-fragment```
 
 > **(Optional) Create a working directory**
-```bashm
-kdir web-fragment && cd ./web-fragment
+```bash
+mkdir web-fragment && cd ./web-fragment
 ```
 
 ### Create @webshift project:
