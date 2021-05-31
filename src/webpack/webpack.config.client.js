@@ -66,8 +66,6 @@ export default removeEmpty({
         }),
         new webpack.DefinePlugin({
             PRODUCTION: JSON.stringify(ifProduction()),
-            CLIENT: JSON.stringify(true),
-            SERVER: JSON.stringify(false),
             BASE_PATH: JSON.stringify(config.BASE_PATH),
             FRAGMENT_ID: JSON.stringify(config.FRAGMENT_ID),
         }),
