@@ -21,7 +21,6 @@ export default removeEmpty({
 
     externalsType: 'umd',
     externals: [nodeExternals(), 'react', 'react-dom', /^react-dom\/.+$/, /^@webshift\/.+$/],
-    //externals: [nodeExternals(), /^webshift\/.+$/,],
 
     output: {
         path: path.resolve('dist'),

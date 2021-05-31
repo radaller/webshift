@@ -9,6 +9,7 @@ import { config } from './init';
 
 const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV || 'development');
 
+console.log(`[Server Mode] ifDevelopment:${ifDevelopment()} ifProduction:${ifProduction()}`);
 
 export default removeEmpty({
     name: 'server',
