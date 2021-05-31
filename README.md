@@ -12,11 +12,11 @@ https://github.com/vercel/next.js/issues/8963
 * [Install Nodejs](https://nodejs.org/en/download/)
 
 
-###(Optional) Create a working directory
+### (Optional) Create a working directory
 
-> `mkdir web-fragment && cd web-fragment`
+> mkdir web-fragment && cd web-fragment
 
-###Create @webshift project:
+### Create @webshift project:
 
 > `npx webshift@latest init`
 
