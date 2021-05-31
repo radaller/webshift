@@ -7,7 +7,7 @@
 
 ### Install Dependencies
 
-> * [Nodejs](https://nodejs.org/en/download/)
+* [Nodejs](https://nodejs.org/en/download/)
 
 ## Quick Start
 
