@@ -2,12 +2,8 @@
 
 ### Goals
 * Enhance React based SPAs (Single Page Applications) with SSR (server side rendering)
-* 
+* Enhance Web Component with SSR
 * Production ready http server
-* Load resources on demand
-
-The tool was inspired by missing of running multiple nextjs instances on the same page
-https://github.com/vercel/next.js/issues/8963
 
 ### Install Dependencies
 
@@ -15,7 +11,7 @@ https://github.com/vercel/next.js/issues/8963
 
 ## Quick Start
 
-> **(Optional) Create a working directory**
+> ###(Optional) Create a working directory
 ```bash
 mkdir web-fragment && cd ./web-fragment
 ```
