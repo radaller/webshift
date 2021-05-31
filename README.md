@@ -13,7 +13,7 @@ https://github.com/vercel/next.js/issues/8963
 
 > * [Nodejs](https://nodejs.org/en/download/)
 
-### Quick Start
+## Quick Start
 
 > **(Optional) Create a working directory**
 ```bash
