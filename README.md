@@ -14,7 +14,7 @@ https://github.com/vercel/next.js/issues/8963
 
 ### (Optional) Create a working directory
 
-> mkdir web-fragment && cd web-fragment
+> **mkdir web-fragment && cd web-fragment**
 
 ### Create @webshift project:
 
