@@ -16,7 +16,7 @@
 mkdir web-fragment && cd ./web-fragment
 ```
 
-> **Create @webshift project**
+> ### Create @webshift project
 
 ```bash
 npx webshift@latest init
@@ -33,13 +33,13 @@ npx webshift@latest init
 ├── webshift.config.js
 ```
 
-> **Start Development**
+> ### Start Development
 
 ```bash
 npm start
 ```
 
-> **Test Quality**
+> ### Test Quality
 
 ```bash
 npm test
@@ -50,7 +50,7 @@ Runs the app in the development mode.\
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-> **Build and Run Production**
+> ### Build and Run Production
 
 ```bash 
 npm run build && npm run build:start
