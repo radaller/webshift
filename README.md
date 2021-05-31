@@ -12,21 +12,16 @@ https://github.com/vercel/next.js/issues/8963
 
 * [Install Nodejs](https://nodejs.org/en/download/)
 
-
-### (Optional) Create a working directory
-
-> **mkdir web-fragment && cd ./web-fragment**
-
-```mkdir web-fragment && cd ./web-fragment```
-
 > **(Optional) Create a working directory**
 ```bash
 mkdir web-fragment && cd ./web-fragment
 ```
 
-### Create @webshift project:
+> **Create @webshift project**
 
-> **npx webshift@latest init**
+```bash
+npx webshift@latest init
+```
 
 ```text
 ../
@@ -39,19 +34,28 @@ mkdir web-fragment && cd ./web-fragment
 ├── webshift.config.js
 ```
 
-### Start Development
-> **npm start**
+> **Start Development**
 
-### Test Quality
-> **npm test**
+```bash
+npm start
+```
+
+> **Test Quality**
+
+```bash
+npm test
+```
 
 
 Runs the app in the development mode.\
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### Build and Run Production
-> **npm run build && npm run build:start**
+> **Build and Run Production**
+
+```bash 
+npm run build && npm run build:start
+```
 
 ```text
 ../
