@@ -18,7 +18,7 @@ https://github.com/vercel/next.js/issues/8963
 
 ### Create @webshift project:
 
-> `npx webshift@latest init`
+> **npx webshift@latest init**
 
 ```text
 ../
@@ -32,10 +32,10 @@ https://github.com/vercel/next.js/issues/8963
 ```
 
 ### Start Development
-> `npm start`
+> **npm start**
 
 ### Test Quality
-> `npm test`
+> **npm test**
 
 
 Runs the app in the development mode.\
@@ -43,7 +43,7 @@ The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
 ### Build and Run Production
-> `npm run build && npm run build:start`
+> **npm run build && npm run build:start**
 
 ```text
 ../
