@@ -8,9 +8,10 @@
 The tool was inspired by missing of running multiple nextjs instances on the same page
 https://github.com/vercel/next.js/issues/8963
 
-### Dependencies
+> **Dependencies**
+> 
+> * [Install Nodejs](https://nodejs.org/en/download/)
 
-* [Install Nodejs](https://nodejs.org/en/download/)
 
 > **(Optional) Create a working directory**
 ```bash
