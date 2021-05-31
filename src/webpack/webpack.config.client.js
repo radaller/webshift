@@ -4,11 +4,11 @@ import { getIfUtils, removeEmpty } from 'webpack-config-utils';
 import { StatsWriterPlugin } from 'webpack-stats-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
-import { config } from './init';
+import { config } from './webpack.config.common';
 
 const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV || 'development');
 
-console.log(`[Client Mode] ifDevelopment:${ifDevelopment()} ifProduction:${ifProduction()}`);
+console.log(`[Client Build Mode] ${ifDevelopment('development', 'production')}`);
 
 export default removeEmpty({
     name: 'client',
@@ -17,9 +17,6 @@ export default removeEmpty({
     },
     resolve: {
         alias: {
-            //'fs': false,
-            //'express': false,
-            //'path': false,
             '@webshift/core': `./client.js`,
         },
     },

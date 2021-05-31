@@ -46,9 +46,13 @@ export default removeEmpty({
 
     optimization: {
         minimize: false,
+        nodeEnv: false
     },
 
     plugins: [
+        // new webpack.DefinePlugin({
+        //     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        // }),
         new webpack.BannerPlugin({
             include: 'bin',
             banner: "#!/usr/bin/env node",

@@ -5,11 +5,11 @@ import { getIfUtils, removeEmpty } from 'webpack-config-utils';
 import CopyPlugin from "copy-webpack-plugin";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
-import { config } from './init';
+import { config } from './webpack.config.common';
 
 const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV || 'development');
 
-console.log(`[Server Mode] ifDevelopment:${ifDevelopment()} ifProduction:${ifProduction()}`);
+console.log(`[Server Build Mode] ${ifDevelopment('development', 'production')}`);
 
 export default removeEmpty({
     name: 'server',

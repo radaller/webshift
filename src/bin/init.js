@@ -6,11 +6,9 @@ export default (argv) => {
 
     try {
         fs.copySync(srcDir, destDir);
-        console.log('success!');
+        console.log('Successful Initialisation.');
     } catch (err) {
-        console.log(srcDir);
-        console.log(destDir);
-        console.log("error!");
+        console.log("There was an expected error during initialising.");
         console.error(err);
     }
 };
