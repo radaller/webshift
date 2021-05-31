@@ -3,6 +3,7 @@
 ### Goals
 * Enhance React based SPAs (Single Page Applications) with SSR (server side rendering)
 * Production ready http server
+* Load resources on demand
 
 The tool was inspired by missing of running multiple nextjs instances on the same page
 https://github.com/vercel/next.js/issues/8963
@@ -14,7 +15,14 @@ https://github.com/vercel/next.js/issues/8963
 
 ### (Optional) Create a working directory
 
-> **mkdir web-fragment && cd web-fragment**
+> **mkdir web-fragment && cd ./web-fragment**
+
+```mkdir web-fragment && cd ./web-fragment```
+
+> **(Optional) Create a working directory**
+```bashm
+kdir web-fragment && cd ./web-fragment
+```
 
 ### Create @webshift project:
 
