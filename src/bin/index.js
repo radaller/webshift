@@ -64,7 +64,7 @@ if (!foundCommand) {
 if (args['--help']) {
     forwardedArgs.push('--help');
 }
-console.log(`Cli NODE_ENV:${process.env.NODE_ENV}`);
+
 process.on('SIGTERM', () => process.exit(0));
 process.on('SIGINT', () => process.exit(0));
 commands[command](forwardedArgs);

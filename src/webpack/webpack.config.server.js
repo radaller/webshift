@@ -76,10 +76,12 @@ export default removeEmpty({
                 { from: "src/*.ico", to: "public/img/[name].[contenthash][ext]" },
             ],
         }),
-        new BundleAnalyzerPlugin({
-            analyzerMode: 'static',
-            reportFilename: path.resolve(`build/analyze/server.html`),
-            openAnalyzer: false,
-        }),
+        ifProduction(
+            new BundleAnalyzerPlugin({
+                analyzerMode: 'static',
+                reportFilename: path.resolve(`build/analyze/server.html`),
+                openAnalyzer: false,
+            })
+        ),
     ],
 });

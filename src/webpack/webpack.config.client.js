@@ -75,10 +75,12 @@ export default removeEmpty({
                 'assetsByChunkName',
             ],
         }),
-        new BundleAnalyzerPlugin({
-            analyzerMode: 'static',
-            reportFilename: path.resolve(`build/analyze/client.html`),
-            openAnalyzer: false,
-        }),
+        ifProduction(
+            new BundleAnalyzerPlugin({
+                analyzerMode: 'static',
+                reportFilename: path.resolve(`build/analyze/client.html`),
+                openAnalyzer: false,
+            })
+        ),
     ],
 });

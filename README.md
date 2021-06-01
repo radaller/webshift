@@ -2,8 +2,7 @@
 
 ### Goals
 * Enhance React based SPAs (Single Page Applications) with SSR (server side rendering)
-* Enhance Web Component with SSR
-* Production ready http server
+* Enhance frontend micro-services architecture
 
 ### Install Dependencies
 
@@ -18,65 +17,59 @@ mkdir web-fragment && cd ./web-fragment
 
 > ### Create @webshift project
 
-```bash
-npx webshift@latest init
-```
-
 ```text
+npx webshift@latest init
+
+==>
+
 ../
 ├── src/
 │   ├── App.js
 │   ├── favicon.ico
-│   ├── logo192.ico
-│   ├── logo512.ico
 ├── package.json
 ├── webshift.config.js
 ```
 
 > ### Start Development
+> 
+> * Bundles ./src/App.js into memory with **webpack-dev-middleware**
+> * Provides Hot Module Replacement with **webpack-hot-middleware**
 
 ```bash
 npm start
 ```
 
 > ### Test Quality
+> 
+> * Executes e2e tests with **selenium-webdriver** and **chromedriver**
 
 ```bash
-npm test
+npm run webdriver
 ```
 
+> ### Build for Production
+>
+> * Bundles ./src/App.js into the **./build** folder
+> * Optimizes artifacts and includes hashes into filenames
 
-Runs the app in the development mode.\
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-> ### Build and Run Production
-
-```bash 
+```test
 npm run build && npm run build:start
-```
 
-```text
+==>
+
 ../
 ├── build/
-│   ├── analyse/
-│   │   ├── client.html
-│   │   ├── server.html
-│   ├── public/
-│   │   ├── img/
-│   │   │   ├── *.(png|svg|jpg|jpeg|gif|ico)
-│   │   ├── js/
-│   │   │   ├── main.js
-│   │   │   ├── [name].[chunkhash].js
-│   │   │   ├── vendor.js
-│   ├── server.js
-│   ├── stats.json
+│   ├── analyse/                        <-- bundle details (size, dependencies)
+│   ├── public/                         <-- www folder
+│   │   ├── img/                            <-- bunle images
+│   │   ├── js/                             <-- client scripts
+│   │   │   ├── main.js                         <-- main entry
+│   │   │   ├── [name].[chunkhash].js           <-- code splitting chunks
+│   │   │   ├── vendor.js                       <-- application dependencies
+│   ├── server.js                       <-- node express server
+│   ├── stats.json                      <-- chunks to assets map
 ```
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
 
 ### Code Splitting
 
