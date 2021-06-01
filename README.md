@@ -47,7 +47,7 @@ npm start
 npm run webdriver
 ```
 
-### Build for Production
+### Production Build
 >
 > * Bundles ./src/App.js into the **./build** folder
 > * Optimizes artifacts and includes hashes into filenames
@@ -72,10 +72,19 @@ npm run build && npm run build:start
 ```
 
 ### Code Splitting
+> use webshift/chunk
 
 ### Analyzing the Bundle Size
 
 ### Advanced Configuration
+>
+> Edit **./webshift.config.js** to customise bundle
 
-
+```javascript
+module.exports = {
+    FRAGMENT_ID: String,        // default root-fragment
+    CLIENT_EXTERNALS: [String], // default [], all dependencies are bundled
+    SERVER_EXTERNALS: [String]  // default [], all dependencies are bundled
+};
+```
 
