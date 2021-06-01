@@ -71,10 +71,45 @@ npm run build && npm run build:start
 │   ├── stats.json                      <-- chunks to assets map
 ```
 
-### Code Splitting
-> use webshift/chunk
+### Code Splitting with @webshift
+> Wrapping the component with chunk function will 
 
-### Analyzing the Bundle Size
+```javascript
+import { chunk } from 'webshift';
+import { Route, Switch } from 'react-router';
+
+export default (props) => {
+    const homePage = chunk('./components/homePage');
+    const aboutPage = chunk('./components/aboutPage');
+    const errorPage = chunk('./components/errorPage');
+    
+    return (
+        <Layout>
+            <Header/>
+            <Switch>
+                <Route path={ '/' } component={ homePage } />
+                <Route path={ '/about' } component={ aboutPage } />
+                <Route component={ errorPage } />
+            </Switch>
+            <Footer/>
+        </Layout>
+    );
+};
+```
+
+### SSR data load
+
+```javascript
+import { usePrefetch } from 'webshift';
+
+const MyComponent = () => {
+    const [data, error] = usePrefetch(() => {
+        return fetch("https://myapi.example.com").then((res) => res.json());
+    }, []);
+
+    return <div>{data.title}</div>;
+};
+```
 
 ### Advanced Configuration
 >
@@ -88,3 +123,4 @@ module.exports = {
 };
 ```
 
+### Analyzing the Bundle Size
