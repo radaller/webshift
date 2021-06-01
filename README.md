@@ -10,12 +10,12 @@
 
 ## Quick Start
 
-> ### (Optional) Create a working directory
+> (Optional) Create a working directory
 ```bash
 mkdir web-fragment && cd ./web-fragment
 ```
 
-> ### Create @webshift project
+### Create @webshift project
 
 ```text
 npx webshift@latest init
@@ -30,7 +30,7 @@ npx webshift@latest init
 ├── webshift.config.js
 ```
 
-> ### Start Development
+### Start Development
 > 
 > * Bundles ./src/App.js into memory with **webpack-dev-middleware**
 > * Provides Hot Module Replacement with **webpack-hot-middleware**
@@ -39,7 +39,7 @@ npx webshift@latest init
 npm start
 ```
 
-> ### Test Quality
+### Run Tests
 > 
 > * Executes e2e tests with **selenium-webdriver** and **chromedriver**
 
@@ -47,7 +47,7 @@ npm start
 npm run webdriver
 ```
 
-> ### Build for Production
+### Build for Production
 >
 > * Bundles ./src/App.js into the **./build** folder
 > * Optimizes artifacts and includes hashes into filenames
