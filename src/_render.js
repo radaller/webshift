@@ -3,9 +3,8 @@ import { renderToString } from "react-dom/server";
 import { StaticRouter } from 'react-router-dom';
 import { ChunkExtractor } from '@loadable/server';
 
-export default (App, Document, Fragment) => ({ clientStats }) => {
+export default (App, Document) => ({ clientStats }) => {
     return (req, res) => {
-
         let htmlString = '';
         const context = {};
 
@@ -16,30 +15,29 @@ export default (App, Document, Fragment) => ({ clientStats }) => {
                 <App/>
             </StaticRouter>
         );
-        // const test = renderToString(
-        //     <Fragment clientStats={ clientStats } extractor={ extractor }>
-        //         { jsx }
-        //     </Fragment>
-        // );
-        console.log(extractor.chunks);
 
         const esi_enabled = req.header('esi') === 'true';
         if (esi_enabled) {
-            htmlString = renderToString(
-                <Fragment clientStats={ clientStats } extractor={ extractor }>
-                    { jsx }
-                </Fragment>
-            );
+            htmlString =
+                `<div id="${ FRAGMENT_ID }">` +
+                    renderToString(jsx) +
+                '</div>' +
+                extractor.getScriptTags();
         } else {
-            htmlString = '<!DOCTYPE html>' +
-                renderToString(
-                    <Document>
-                        <Fragment clientStats={ clientStats } extractor={ extractor }>
-                            { jsx }
-                        </Fragment>
-                    </Document>
-                );
+            htmlString =
+                '<!DOCTYPE html>' +
+                '<html lang="en">' +
+                    renderToString(<Document />) +
+                    '<body>' +
+                        `<div id="${ FRAGMENT_ID }">` +
+                            renderToString(jsx) +
+                        '</div>' +
+                        extractor.getScriptTags() +
+                    '</body>' +
+                '</html>';
         }
+
+        console.log(extractor.chunks);
 
         res.send(htmlString);
     };

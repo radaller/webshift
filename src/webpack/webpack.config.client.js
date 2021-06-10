@@ -29,6 +29,7 @@ export default removeEmpty({
         filename: 'js/[name].[chunkhash].js',
         publicPath: config.BASE_PATH,
         assetModuleFilename: 'img/[name].[contenthash][ext][query]',
+        chunkLoadingGlobal: '__LOADABLE_LOADED_CHUNKS__',
     },
 
     module: {

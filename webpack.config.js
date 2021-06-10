@@ -13,9 +13,7 @@ export default removeEmpty({
         index: './src/index.js',
         bin: './src/bin/index.js',
         server: './src/_server.js',
-        client: './src/_client.js',
-        server_chunk: './src/server/chunk.js',
-        client_chunk: './src/client/chunk.js',
+        client: './src/_client.js'
     },
     mode: ifDevelopment('development', 'production'),
 

@@ -14,10 +14,6 @@ import {
 
 import Logo from './logo512.png';
 
-//import Aboutus from './Aboutus';
-import Error from './Error';
-//import HomeTMP from './Home';
-
 const theme = {
     fontSizes: {
         h3: '32px',
@@ -85,8 +81,8 @@ Button.defaultProps = {
     minWidth: '90px',
 };
 
-function App() {
-    function handleClick(e) {
+const App = () => {
+    const handleClick = (e) => {
         e.preventDefault();
         console.log('The link was clicked.');
     }
@@ -107,7 +103,7 @@ function App() {
                 <Link to="/about">
                     <Button>About Us</Button>
                 </Link>
-                <Button onClick={handleClick}>Click Test</Button>
+                <Button onClick={ handleClick }>Click Test</Button>
             </Bar>
             <Switch>
                 <Route path={ '/' } component={ Home } exact/>
