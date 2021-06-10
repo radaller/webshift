@@ -71,11 +71,13 @@ npm run build && npm run build:start
 │   ├── stats.json                      <-- chunks to assets map
 ```
 
-### Code Splitting with @webshift
-> Wrapping the component with chunk function will 
+### chunk()
+> Split client code for better web performance
+> 
+>Chunks used during server rendering will be included into html
 
 ```javascript
-import { chunk } from 'webshift';
+import { chunk } from '@webshift';
 import { Route, Switch } from 'react-router';
 
 export default (props) => {
@@ -97,13 +99,14 @@ export default (props) => {
 };
 ```
 
-### SSR data load
+### useServerSideEffect()
+> Fetching data on the server. 
 
 ```javascript
-import { usePrefetch } from 'webshift';
+import { useServerSideEffect } from '@webshift';
 
 const MyComponent = () => {
-    const [data, error] = usePrefetch(() => {
+    const [data, error] = useServerSideEffect(() => {
         return fetch("https://myapi.example.com").then((res) => res.json());
     }, []);
 
@@ -111,16 +114,34 @@ const MyComponent = () => {
 };
 ```
 
-### Advanced Configuration
+### Advanced Build Configuration
 >
 > Edit **./webshift.config.js** to customise bundle
 
 ```javascript
 module.exports = {
-    FRAGMENT_ID: String,        // default root-fragment
     CLIENT_EXTERNALS: [String], // default [], all dependencies are bundled
     SERVER_EXTERNALS: [String]  // default [], all dependencies are bundled
 };
 ```
 
+### Advanced .env Configuration
+```text
+APP_SERVER_HOST=localhost
+APP_SERVER_PORT=3040
+HTML_ID=root-fragment
+PUBLIC_PATH=/
+LOG_COLOR=true
+LOG_LEVEL=info
+```
+
 ### Analyzing the Bundle Size
+
+## Contribution
+
+> * Clone the repository
+> * npm install
+> * npm run build:init
+> * npm run build:copy
+> * cd build/
+> * npm start or npm run build
