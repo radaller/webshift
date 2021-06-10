@@ -71,29 +71,29 @@ npm run build && npm run build:start
 │   ├── stats.json                      <-- chunks to assets map
 ```
 
-### chunk()
+### Splitting code with @loadable
 > Split client code for better web performance
-> 
->Chunks used during server rendering will be included into html
+>
 
 ```javascript
-import { chunk } from '@webshift';
 import { Route, Switch } from 'react-router';
+import { Link } from 'react-router-dom';
+import loadable from '@loadable/component';
 
 export default (props) => {
-    const homePage = chunk('./components/homePage');
-    const aboutPage = chunk('./components/aboutPage');
-    const errorPage = chunk('./components/errorPage');
+    const Home = loadable(() => import('./Home'));
+    const Aboutus = loadable(() => import('./Aboutus'));
+    const Error = loadable(() => import('./Error'));
     
     return (
         <Layout>
-            <Header/>
+            <Link to="/">Home</Link>
+            <Link to="/about">About Us</Link>
             <Switch>
-                <Route path={ '/' } component={ homePage } />
-                <Route path={ '/about' } component={ aboutPage } />
-                <Route component={ errorPage } />
+                <Route path={ '/' } component={ Home } />
+                <Route path={ '/about' } component={ Aboutus } />
+                <Route component={ Error } />
             </Switch>
-            <Footer/>
         </Layout>
     );
 };

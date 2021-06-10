@@ -9,8 +9,6 @@ import { config } from './webpack.config.common';
 
 const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV || 'development');
 
-console.log(`[Server Build Mode] ${ifDevelopment('development', 'production')}`);
-
 export default removeEmpty({
     name: 'server',
     devtool: ifDevelopment('source-map'),
@@ -30,7 +28,7 @@ export default removeEmpty({
             allowlist: ['webshift', '@webshift/core']
         })
     ]),
-    //externals: [nodeExternals()],
+    //externals: [SERVER_EXTERNALS],
 
     output: {
         path: path.resolve('build'),
@@ -61,9 +59,12 @@ export default removeEmpty({
             },
         ]
     },
-    plugins: [
+    plugins: removeEmpty([
         new webpack.ProvidePlugin({
             "React": "react",
+        }),
+        new webpack.optimize.LimitChunkCountPlugin({
+            maxChunks: 1,
         }),
         new webpack.DefinePlugin(removeEmpty({
             PRODUCTION: JSON.stringify(ifProduction()),
@@ -83,5 +84,5 @@ export default removeEmpty({
                 openAnalyzer: false,
             })
         ),
-    ],
+    ]),
 });

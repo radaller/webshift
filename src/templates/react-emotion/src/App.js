@@ -1,6 +1,10 @@
 import webshift from 'webshift';
+import { chunk } from 'webshift'
 import styled from '@emotion/styled';
 import { ThemeProvider } from '@emotion/react';
+import { Route, Switch } from 'react-router';
+import { Link } from 'react-router-dom';
+import loadable from '@loadable/component';
 import {
     space,
     color,
@@ -9,6 +13,10 @@ import {
 } from 'styled-system';
 
 import Logo from './logo512.png';
+
+//import Aboutus from './Aboutus';
+import Error from './Error';
+//import HomeTMP from './Home';
 
 const theme = {
     fontSizes: {
@@ -82,6 +90,9 @@ function App() {
         e.preventDefault();
         console.log('The link was clicked.');
     }
+    const Home = loadable(() => import('./Home'));
+    const Aboutus = loadable(() => import('./Aboutus'));
+    const Error = loadable(() => import('./Error'));
 
     return (
         <ThemeProvider theme={ theme }>
@@ -90,10 +101,19 @@ function App() {
                 <Header3>Tech Blog</Header3>
             </Bar>
             <Bar className={"main-menu"} backgroundColor='white'>
-                <Button onClick={handleClick}>Home</Button>
-                <Button>News</Button>
-                <Button>About Us</Button>
+                <Link to="/">
+                    <Button>Home</Button>
+                </Link>
+                <Link to="/about">
+                    <Button>About Us</Button>
+                </Link>
+                <Button onClick={handleClick}>Click Test</Button>
             </Bar>
+            <Switch>
+                <Route path={ '/' } component={ Home } exact/>
+                <Route path={ '/about' } component={ Aboutus } />
+                <Route component={ Error } />
+            </Switch>
         </ThemeProvider>
     );
 }

@@ -19,6 +19,8 @@ export default (argv) => {
         serverSideRender: true,
         stats: {
             colors: true,
+            assets: true,
+            ids: true,
             hash: false,
             timings: true,
             chunks: false,

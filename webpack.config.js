@@ -14,13 +14,21 @@ export default removeEmpty({
         bin: './src/bin/index.js',
         server: './src/_server.js',
         client: './src/_client.js',
+        server_chunk: './src/server/chunk.js',
+        client_chunk: './src/client/chunk.js',
     },
     mode: ifDevelopment('development', 'production'),
 
     target: 'node',
 
     externalsType: 'umd',
-    externals: [nodeExternals(), 'react', 'react-dom', /^react-dom\/.+$/, /^@webshift\/.+$/],
+    externals: [
+        nodeExternals(),
+        'react', 'react-dom', /^react-dom\/.+$/,
+        'react-router-dom',
+        /^@loadable\/.+$/,
+        /^@webshift\/.+$/
+    ],
 
     output: {
         path: path.resolve('dist'),

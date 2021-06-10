@@ -8,8 +8,6 @@ import { config } from './webpack.config.common';
 
 const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV || 'development');
 
-console.log(`[Client Build Mode] ${ifDevelopment('development', 'production')}`);
-
 export default removeEmpty({
     name: 'client',
     entry: {
@@ -24,7 +22,7 @@ export default removeEmpty({
 
     target: 'web',
     externalsType: 'umd',
-    //externals: ['react'],
+    //externals: [CLIENT_EXTERNALS],
 
     output: {
         path: path.resolve('build/public'),
@@ -48,6 +46,7 @@ export default removeEmpty({
         ]
     },
     optimization: {
+        chunkIds: 'named',
         splitChunks: {
             cacheGroups: {
                 vendor: {
@@ -59,7 +58,7 @@ export default removeEmpty({
             },
         },
     },
-    plugins: [
+    plugins: removeEmpty([
         new webpack.ProvidePlugin({
             "React": "react",
         }),
@@ -82,5 +81,5 @@ export default removeEmpty({
                 openAnalyzer: false,
             })
         ),
-    ],
+    ]),
 });
