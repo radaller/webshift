@@ -1,8 +1,8 @@
 import Renderer from "./_render";
 
-export default (App, Document, Fragment) => {
+export default (App, Document) => {
 
-    const render = Renderer(App, Document, Fragment);
+    const render = Renderer(App, Document);
 
     if (PRODUCTION) {
         const HOST = process.env.HOST || 'localhost';

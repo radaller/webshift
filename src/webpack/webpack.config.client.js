@@ -1,8 +1,8 @@
 import path from 'path';
 import webpack from 'webpack';
 import { getIfUtils, removeEmpty } from 'webpack-config-utils';
-import { StatsWriterPlugin } from 'webpack-stats-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import LoadablePlugin from '@loadable/webpack-plugin';
 
 import { config } from './webpack.config.common';
 
@@ -68,13 +68,11 @@ export default removeEmpty({
             BASE_PATH: JSON.stringify(config.BASE_PATH),
             FRAGMENT_ID: JSON.stringify(config.FRAGMENT_ID),
         }),
-        new StatsWriterPlugin({
-            filename: '../stats.json',
-            fields: [
-                'publicPath',
-                'assetsByChunkName',
-            ],
-        }),
+        ifProduction(
+            new LoadablePlugin({
+                filename: '../stats.json'
+            })
+        ),
         ifProduction(
             new BundleAnalyzerPlugin({
                 analyzerMode: 'static',

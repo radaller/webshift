@@ -1,5 +1,4 @@
 import webshift from 'webshift';
-import { chunk } from 'webshift'
 import styled from '@emotion/styled';
 import { ThemeProvider } from '@emotion/react';
 import { Route, Switch } from 'react-router';

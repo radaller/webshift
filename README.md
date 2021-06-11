@@ -71,7 +71,7 @@ npm run build && npm run build:start
 │   ├── stats.json                      <-- chunks to assets map
 ```
 
-### Splitting code with @loadable
+### Code Splitting with @loadable
 > Split client code for better web performance
 >
 
@@ -99,8 +99,16 @@ export default (props) => {
 };
 ```
 
+## Features in Progress
+
+## npm ini
+
+```bash
+npm init webshift <new_directory>
+```
+
 ### useServerSideEffect()
-> Fetching data on the server. 
+> Fetching data on the server.
 
 ```javascript
 import { useServerSideEffect } from '@webshift';
@@ -135,7 +143,7 @@ LOG_COLOR=true
 LOG_LEVEL=info
 ```
 
-### Analyzing the Bundle Size
+### Bundle Analysis
 
 ## Contribution
 

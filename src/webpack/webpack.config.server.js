@@ -6,6 +6,7 @@ import CopyPlugin from "copy-webpack-plugin";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
 import { config } from './webpack.config.common';
+import LoadablePlugin from "@loadable/webpack-plugin";
 
 const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV || 'development');
 
@@ -71,6 +72,12 @@ export default removeEmpty({
             BASE_PATH: JSON.stringify(config.BASE_PATH),
             FRAGMENT_ID: JSON.stringify(config.FRAGMENT_ID),
         })),
+
+        new LoadablePlugin({
+            outputAsset: false,
+            writeToDisk: false,
+        }),
+
         new CopyPlugin({
             patterns: [
                 { from: "src/*.png", to: "public/img/[name].[contenthash][ext]" },
