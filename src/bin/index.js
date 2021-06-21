@@ -1,13 +1,11 @@
 import arg from 'arg';
 import build from './build';
 import dev from './dev';
-import init from './init';
 
 const VERSION = '1.0.0';
 
 const defaultCommand = 'dev';
 const commands = {
-    init,
     dev,
     build,
 };

@@ -6,8 +6,7 @@
   },
   "main": "./dist/index.js",
   "files": [
-    "dist/**/*",
-    "dist/templates/**/*"
+    "dist/**/*"
   ],
   "dependencies": {
     "@babel/core": "^7.14.2",
@@ -30,7 +29,8 @@
   },
   "scripts": {
     "start": "",
-    "build:init": "mkdir build/ && (cd build/ && npx webshift@latest init)",
+    "test": "jest",
+    "build:init": "mkdir build/ && (cd build/ && npm webshift@latest)",
     "build": "babel-node build-scripts.js && chmod +x dist/*",
     "build:copy": "babel-node build-scripts.js && chmod +x dist/* && cp -R dist/* build/node_modules/webshift/dist",
     "build:docker": "docker build -t webshift:latest ."
@@ -45,7 +45,8 @@
     "presets": [
       "@babel/preset-env",
       "@babel/preset-react"
-    ]
+    ],
+    "plugins": ["@babel/plugin-transform-runtime"]
   },
   "browserslist": {
     "production": [
@@ -60,6 +61,10 @@
     ]
   },
   "devDependencies": {
-    "@babel/node": "^7.14.2"
+    "@babel/node": "^7.14.2",
+    "@babel/plugin-transform-runtime": "^7.14.5",
+    "jest": "^27.0.4",
+    "jest-puppeteer": "^5.0.4",
+    "puppeteer": "^9.1.1"
   }
 }

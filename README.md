@@ -9,23 +9,19 @@
 * [Nodejs](https://nodejs.org/en/download/)
 
 ## Quick Start
+### Create webshift project
 
-> (Optional) Create a working directory
 ```bash
-mkdir web-fragment && cd ./web-fragment
+npm init webshift@latest <working-dir>
 ```
 
-### Create @webshift project
-
 ```text
-npx webshift@latest init
-
 ==>
 
 ../
 ├── src/
+│   ├── ...
 │   ├── App.js
-│   ├── favicon.ico
 ├── package.json
 ├── webshift.config.js
 ```
@@ -37,14 +33,6 @@ npx webshift@latest init
 
 ```bash
 npm start
-```
-
-### Run Tests
-> 
-> * Executes e2e tests with **selenium-webdriver** and **chromedriver**
-
-```bash
-npm run webdriver
 ```
 
 ### Production Build
@@ -101,12 +89,6 @@ export default (props) => {
 
 ## Features in Progress
 
-## npm ini
-
-```bash
-npm init webshift <new_directory>
-```
-
 ### useServerSideEffect()
 > Fetching data on the server.
 
@@ -128,8 +110,19 @@ const MyComponent = () => {
 
 ```javascript
 module.exports = {
-    CLIENT_EXTERNALS: [String], // default [], all dependencies are bundled
-    SERVER_EXTERNALS: [String]  // default [], all dependencies are bundled
+    CLIENT_EXTERNALS: [
+        "@emotion/react",
+        "@emotion/styled",
+        "@loadable/component",
+        "react",
+        "react-dom",
+        "react-router",
+        "react-router-dom",
+        "styled-system",
+    ], // default [], all dependencies are bundled
+    SERVER_EXTERNALS: [
+        "express"
+    ]  // default [], all dependencies are bundled
 };
 ```
 
@@ -152,4 +145,5 @@ LOG_LEVEL=info
 > * npm run build:init
 > * npm run build:copy
 > * cd build/
-> * npm start or npm run build
+> * npm start or npm run build && npm run build:start
+> * npm test

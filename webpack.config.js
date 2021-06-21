@@ -2,7 +2,6 @@ import path from 'path';
 import webpack from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 import { getIfUtils, removeEmpty } from 'webpack-config-utils';
-import CopyPlugin from "copy-webpack-plugin";
 
 const { ifDevelopment } = getIfUtils(process.env.NODE_ENV || 'development');
 
@@ -63,11 +62,6 @@ export default removeEmpty({
             include: 'bin',
             banner: "#!/usr/bin/env node",
             raw: true
-        }),
-        new CopyPlugin({
-            patterns: [
-                { from: "src/templates", to: "templates" },
-            ],
         }),
     ],
 });
