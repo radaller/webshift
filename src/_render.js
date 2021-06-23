@@ -5,19 +5,19 @@ import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 
 export default (App, Headers) => ({ clientStats }) => {
     return (req, res) => {
-        let htmlString = '';
         const context = {};
-
         const extractor = new ChunkExtractor({ stats: clientStats, namespace: "header" })
 
         const ServerApp = () =>
-            <ChunkExtractorManager extractor={extractor}>
+            <ChunkExtractorManager extractor={ extractor }>
                 <StaticRouter context={ context } location={ req.url } basename="/header">
                     <App/>
                 </StaticRouter>
             </ChunkExtractorManager>
 
+        let htmlString = '';
         const esi_enabled = req.header('esi') === 'true';
+
         if (esi_enabled) {
             htmlString =
                 `<div id="${ FRAGMENT_ID }">` +
