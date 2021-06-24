@@ -11,11 +11,11 @@ const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV || 'deve
 export default removeEmpty({
     name: 'client',
     entry: {
-        main: `${process.cwd()}/src/App.js`,
+        main: `${__dirname}/client.js`,
     },
     resolve: {
         alias: {
-            '@webshift/core': `./client.js`,
+            '@app': `${ process.cwd() }/src/App.js`,
         },
     },
     mode: ifDevelopment('development', 'production'),

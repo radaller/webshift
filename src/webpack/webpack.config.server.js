@@ -4,19 +4,20 @@ import webpack from 'webpack';
 import { getIfUtils, removeEmpty } from 'webpack-config-utils';
 import CopyPlugin from "copy-webpack-plugin";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+import LoadablePlugin from "@loadable/webpack-plugin";
 
 import { config } from './webpack.config.common';
-import LoadablePlugin from "@loadable/webpack-plugin";
 
 const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV || 'development');
 
 export default removeEmpty({
     name: 'server',
     devtool: ifDevelopment('source-map'),
-    entry: `${process.cwd()}/src/App.js`,
+    entry: ifDevelopment(`${__dirname}/render.js`, `${__dirname}/server.js`),
     resolve: {
         alias: {
-            '@webshift/core': `./server.js`,
+            '@app': `${ process.cwd() }/src/App.js`,
+            '@render': `./render.js`
         },
     },
     mode: ifDevelopment('development', 'production'),
@@ -26,7 +27,7 @@ export default removeEmpty({
     externalsType: 'umd',
     externals: ifDevelopment([
         nodeExternals({
-            allowlist: ['webshift', '@webshift/core']
+            allowlist: ['@app']
         })
     ]),
     //externals: [SERVER_EXTERNALS],

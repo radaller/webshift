@@ -9,9 +9,9 @@ export default removeEmpty({
     name: 'scripts',
     devtool: ifDevelopment('source-map'),
     entry: {
-        index: './src/index.js',
         bin: './src/bin/index.js',
         server: './src/_server.js',
+        render: './src/_render.js',
         client: './src/_client.js'
     },
     mode: ifDevelopment('development', 'production'),
@@ -24,7 +24,9 @@ export default removeEmpty({
         'react', 'react-dom', /^react-dom\/.+$/,
         'react-router-dom',
         /^@loadable\/.+$/,
-        /^@webshift\/.+$/
+        /^@webshift\/.+$/,
+        '@app',
+        '@render'
     ],
 
     output: {
@@ -42,11 +44,6 @@ export default removeEmpty({
                 use: 'babel-loader'
             },
         ],
-        parser: {
-            javascript: {
-                commonjsMagicComments: true,
-            },
-        },
     },
 
     optimization: {
