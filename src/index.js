@@ -4,29 +4,32 @@ import { useContext, useState, useEffect } from "react";
 
 import * as logger from "axios-logger";
 
-export const DataContext = React.createContext({});
+export const DataContext = React.createContext(false);
 
-export const ServerContext = React.createContext({
-    requests: [],
-    resolved: false,
-});
+export const RequestContext = React.createContext(false);
 
-export const useServerSideEffect = (requestKey, effect, dependencies) => {
-    const serverContext = useContext(ServerContext);
+export const useServerSideEffect = (dataKey, effect, dependencies) => {
+    const requestContext = useContext(RequestContext);
     const dataContext = useContext(DataContext);
-    const [data, setData] = useState(dataContext[requestKey] || null);
-
+    const [data, setData] = useState(dataContext[dataKey] || null);
     const [error, setError] = useState(null);
 
-    if (!serverContext.resolved) {
-        serverContext.requests.push(
-            effect().then(res => (dataContext[requestKey] = res.data))
+    if (requestContext) {
+        requestContext.push(
+            effect()
+                .then(res => {
+                    logger.responseLogger(res);
+                    return { [dataKey]: res.data };
+                })
+                .catch((err) => {
+                    logger.errorLogger(err);
+                    throw err;
+                })
         );
     }
 
     useEffect(() => {
-        if (!dataContext[requestKey]) {
-            console.log(`useEffect requestKey ${requestKey}`);
+        if (!dataContext[dataKey]) {
             effect()
                 .then((res) => {
                     logger.responseLogger(res);
@@ -37,68 +40,37 @@ export const useServerSideEffect = (requestKey, effect, dependencies) => {
                     setError(error);
                 });
         }
-        delete dataContext[requestKey];
+        delete dataContext[dataKey];
     }, dependencies);
 
     return [data, error];
 };
 
-export const createServerContext = () => {
-    let dataContext = {};
-    let serverContext = {
-        resolved: false,
-        requests: [],
-    };
-    function ServerDataContext(props) {
-        return (
-            <ServerContext.Provider value={ serverContext }>
-                <DataContext.Provider value={ dataContext }>
-                    { props.children }
-                </DataContext.Provider>
-            </ServerContext.Provider>
-        );
-    }
-    const resolveData = async () => {
-        await Promise.all(serverContext.requests);
-
-        serverContext.resolved = true;
-        console.log('data resolved', dataContext);
-
-        return {
-            data: dataContext,
-            toJSON: function () {
-                return this.data;
-            },
-            toHtml: function (variableName= "_initialDataContext") {
-                return `<script>window.${ variableName } = ${ JSON.stringify(this) };</script>`;
-            },
-        };
-    };
-    return {
-        ServerDataContext,
-        resolveData
-    };
+export const RequestExtractor = (props) => {
+    return (
+        <RequestContext.Provider value={ props.requests }>
+            { props.children }
+        </RequestContext.Provider>
+    );
 };
 
-export const createBrowserContext = (
-    variableName = "_initialDataContext"
-) => {
+export const DataProvider = (props) => {
+    const initialData = props.initialData || {};
 
-    const initial = window && window[variableName] ? window[variableName] : {};
-    let serverContext = {
-        resolved: true,
-        requests: [],
-    };
+    return (
+        <DataContext.Provider value={ initialData }>
+            { props.children }
+        </DataContext.Provider>
+    );
+};
 
-    function BrowserDataContext(props) {
-        return (
-            <ServerContext.Provider value={ serverContext }>
-                <DataContext.Provider value={ initial }>
-                    { props.children }
-                </DataContext.Provider>
-            </ServerContext.Provider>
-        );
-    }
+export const BrowserDataProvider = (props) => {
+    const namespace = props.namespace || "_initialData";
+    const initialData = JSON.parse(document.getElementById(namespace).textContent);
 
-    return BrowserDataContext;
+    return (
+        <DataProvider initialData={ initialData }>
+            { props.children }
+        </DataProvider>
+    );
 };
