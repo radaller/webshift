@@ -4,13 +4,19 @@ import { BrowserRouter } from 'react-router-dom';
 import { loadableReady } from '@loadable/component';
 import App from '@app';
 
+import { createBrowserContext } from 'webshift';
+
+const BrowserContext = createBrowserContext();
+
 loadableReady(
     () => {
         ReactDOM.hydrate(
             <React.StrictMode>
-                <BrowserRouter basename="/header">
-                    <App />
-                </BrowserRouter>
+                <BrowserContext>
+                    <BrowserRouter basename="/header">
+                        <App />
+                    </BrowserRouter>
+                </BrowserContext>
             </React.StrictMode>,
             document.getElementById(FRAGMENT_ID)
         );

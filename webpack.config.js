@@ -7,14 +7,15 @@ const { ifDevelopment } = getIfUtils(process.env.NODE_ENV || 'development');
 
 export default removeEmpty({
     name: 'scripts',
-    devtool: ifDevelopment('source-map'),
+    devtool: 'source-map',
     entry: {
         bin: './src/bin/index.js',
         server: './src/_server.js',
         render: './src/_render.js',
-        client: './src/_client.js'
+        client: './src/_client.js',
+        index: './src/index.js',
     },
-    mode: ifDevelopment('development', 'production'),
+    mode: 'development',
 
     target: 'node',
 
@@ -25,6 +26,7 @@ export default removeEmpty({
         'react-router-dom',
         /^@loadable\/.+$/,
         /^@webshift\/.+$/,
+        'webshift',
         '@app',
         '@render'
     ],

@@ -87,22 +87,25 @@ export default (props) => {
 };
 ```
 
-## Features in Progress
-
 ### useServerSideEffect()
 > Fetching data on the server.
+> 
+> Fetch library should be universal e.g. axios
 
 ```javascript
-import { useServerSideEffect } from '@webshift';
+import axios from 'axios';
+import { useServerSideEffect } from 'webshift';
 
 const MyComponent = () => {
-    const [data, error] = useServerSideEffect(() => {
-        return fetch("https://myapi.example.com").then((res) => res.json());
+    const [data, error] = useServerSideEffect('key', () => {
+        return axios.get("https://myapi.example.com").then((res) => res.data);
     }, []);
 
     return <div>{data.title}</div>;
 };
 ```
+
+## Features in Progress
 
 ### Advanced Build Configuration
 >

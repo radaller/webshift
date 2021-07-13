@@ -27,7 +27,7 @@ export default removeEmpty({
     externalsType: 'umd',
     externals: ifDevelopment([
         nodeExternals({
-            allowlist: ['@app']
+            allowlist: ['@app', 'webshift']
         })
     ]),
     //externals: [SERVER_EXTERNALS],
