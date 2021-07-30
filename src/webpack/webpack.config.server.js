@@ -17,7 +17,8 @@ export default removeEmpty({
     resolve: {
         alias: {
             '@app': `${ process.cwd() }/src/App.js`,
-            '@render': `./render.js`
+            '@render': `./render.js`,
+            '@logger': `${__dirname}/server/logger.js`,
         },
     },
     mode: ifDevelopment('development', 'production'),

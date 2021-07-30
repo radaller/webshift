@@ -2,10 +2,9 @@ import React from "react";
 
 import { useContext, useState, useEffect } from "react";
 
-import * as logger from "axios-logger";
+import logger from "@logger";
 
 export const DataContext = React.createContext(false);
-
 export const RequestContext = React.createContext(false);
 
 export const useServerSideEffect = (dataKey, effect, dependencies) => {
@@ -18,11 +17,12 @@ export const useServerSideEffect = (dataKey, effect, dependencies) => {
         requestContext.push(
             effect()
                 .then(res => {
-                    logger.responseLogger(res);
+                    logger.http(getResponseLogMessage(res));
+                    logger.debug(getResponseLogObject(res));
                     return { [dataKey]: res.data };
                 })
                 .catch((err) => {
-                    logger.errorLogger(err);
+                    logger.error();
                     throw err;
                 })
         );
@@ -32,11 +32,12 @@ export const useServerSideEffect = (dataKey, effect, dependencies) => {
         if (!dataContext[dataKey]) {
             effect()
                 .then((res) => {
-                    logger.responseLogger(res);
+                    logger.http(getResponseLogMessage(res));
+                    logger.debug(getResponseLogObject(res));
                     setData(res.data);
                 })
                 .catch((error) => {
-                    logger.errorLogger(error);
+                    logger.error();
                     setError(error);
                 });
         }
@@ -44,6 +45,23 @@ export const useServerSideEffect = (dataKey, effect, dependencies) => {
     }, dependencies);
 
     return [data, error];
+};
+
+const getResponseLogObject = (res) => {
+    const { headers } = res;
+    return {
+        message: `Request ${res.config.url}`,
+        meta: {
+            method: res.config.method.toUpperCase(),
+            status: res.status,
+            url: res.config.url,
+            response: res.data,
+        }
+    };
+};
+
+const getResponseLogMessage = (res) => {
+    return `${res.config.method.toUpperCase()} ${res.status} ${res.config.url}`;
 };
 
 export const RequestExtractor = (props) => {

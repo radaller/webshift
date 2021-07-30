@@ -5,8 +5,9 @@ import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 import { RequestExtractor, DataProvider } from 'webshift';
 
 import * as App from '@app';
+import logger from '@logger';
 
-import Headers from './_document';
+import Document from './_document';
 
 const variableName = '_initialData';
 
@@ -15,7 +16,6 @@ export default ({ clientStats }) => {
 
         const routerContext = {};
         const extractor = new ChunkExtractor({ stats: clientStats, namespace: "header" });
-        const requests = [];
 
         const ServerApp = () =>
             <ChunkExtractorManager extractor={ extractor }>
@@ -24,48 +24,43 @@ export default ({ clientStats }) => {
                 </StaticRouter>
             </ChunkExtractorManager>;
 
+        const requests = [];
         renderToString(
             <RequestExtractor requests={ requests }>
                 <ServerApp />
             </RequestExtractor>
         );
         const result = await Promise.all(requests);
+
         const data = {};
         result.map(req => Object.assign(data, req));
-        console.log('[Data Keys]', Object.keys(data));
+
+        logger.verbose({ message: 'RequestExtractor', meta: { dataKeys: Object.keys(data)}});
 
         const ServerAppWithData = () =>
             <DataProvider initialData={ data }>
                 <ServerApp />
             </DataProvider>;
 
-        let htmlString = '';
-        const esi_enabled = req.header('esi') === 'true';
+        const Scripts = () => [
+            ...extractor.getScriptElements(),
+            <script
+                id={ variableName }
+                type={ "application/json" }
+                dangerouslySetInnerHTML={ { __html: JSON.stringify(data) } }
+            />
+        ];
 
-        if (esi_enabled) {
-            htmlString =
-                `<div id="${ FRAGMENT_ID }">` +
-                    renderToString(<ServerAppWithData />) +
-                '</div>' +
-                `<script id="${variableName}" type="application/json">${ JSON.stringify(data) }</script>` +
-                extractor.getScriptTags();
-        } else {
-            htmlString =
-                '<!DOCTYPE html>' +
-                '<html lang="en">' +
-                    renderToString(<Headers />) +
-                    '<body>' +
-                        `<div id="${ FRAGMENT_ID }">` +
-                            renderToString(<ServerAppWithData />) +
-                        '</div>' +
-                        `<script id="${variableName}" type="application/json">${ JSON.stringify(data) }</script>` +
-                        extractor.getScriptTags() +
-                    '</body>' +
-                '</html>';
-        }
+        logger.verbose({ message: 'ChunkExtractor', meta: { chunks: extractor.chunks } });
 
-        console.log('[Chunks]', extractor.chunks);
-
-        res.send(htmlString);
+        res.send('<!DOCTYPE html>' + renderToString(
+            <Document
+                Headers={ App.Headers }
+                App={ ServerAppWithData }
+                Scripts={ Scripts }
+                esi_enabled={ req.header('esi') === 'true' }
+                FRAGMENT_ID={ FRAGMENT_ID }
+            />
+        ));
     };
 };

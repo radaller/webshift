@@ -3,6 +3,7 @@ import fs from 'fs';
 import express from 'express';
 
 import render from "@render";
+import logger from "@logger";
 
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3040;

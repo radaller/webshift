@@ -69,16 +69,16 @@ import { Link } from 'react-router-dom';
 import loadable from '@loadable/component';
 
 export default (props) => {
-    const Home = loadable(() => import('./Home'));
+    const Welcome = loadable(() => import('./Welcome'));
     const Aboutus = loadable(() => import('./Aboutus'));
     const Error = loadable(() => import('./Error'));
     
     return (
         <Layout>
-            <Link to="/">Home</Link>
+            <Link to="/">Welcome</Link>
             <Link to="/about">About Us</Link>
             <Switch>
-                <Route path={ '/' } component={ Home } />
+                <Route path={ '/' } component={ Welcome } />
                 <Route path={ '/about' } component={ Aboutus } />
                 <Route component={ Error } />
             </Switch>
@@ -104,6 +104,9 @@ const MyComponent = () => {
     return <div>{data.title}</div>;
 };
 ```
+
+### @logger
+
 
 ## Features in Progress
 
@@ -131,12 +134,17 @@ module.exports = {
 
 ### Advanced .env Configuration
 ```text
+NODE_ENV=production
 APP_SERVER_HOST=localhost
 APP_SERVER_PORT=3040
-HTML_ID=root-fragment
+
 PUBLIC_PATH=/
+BASE_PATH=/
+
+FRAGMENT_NAMESPACE=main
+
 LOG_COLOR=true
-LOG_LEVEL=info
+LOG_LEVEL=[info|http|verbose|debug]
 ```
 
 ### Bundle Analysis

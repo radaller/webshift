@@ -9,10 +9,11 @@ export default removeEmpty({
     name: 'scripts',
     devtool: 'source-map',
     entry: {
-        bin: './src/bin/index.js',
+        'bin': './src/bin/index.js',
         server: './src/_server.js',
         render: './src/_render.js',
-        client: './src/_client.js',
+        'client/logger': './src/client/logger.js',
+        'server/logger': './src/server/logger.js',
         index: './src/index.js',
     },
     mode: 'development',
@@ -28,7 +29,8 @@ export default removeEmpty({
         /^@webshift\/.+$/,
         'webshift',
         '@app',
-        '@render'
+        '@render',
+        '@logger',
     ],
 
     output: {
