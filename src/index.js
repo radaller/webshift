@@ -6,6 +6,7 @@ import logger from "@logger";
 
 export const DataContext = React.createContext(false);
 export const RequestContext = React.createContext(false);
+export const ConfigContext = React.createContext(false);
 
 export const useServerSideEffect = (dataKey, effect, dependencies) => {
     const requestContext = useContext(RequestContext);
@@ -50,7 +51,7 @@ export const useServerSideEffect = (dataKey, effect, dependencies) => {
 const getResponseLogObject = (res) => {
     const { headers } = res;
     return {
-        message: `Request ${res.config.url}`,
+        message: `[Request] ${res.config.url}`,
         meta: {
             method: res.config.method.toUpperCase(),
             status: res.status,
@@ -61,7 +62,7 @@ const getResponseLogObject = (res) => {
 };
 
 const getResponseLogMessage = (res) => {
-    return `${res.config.method.toUpperCase()} ${res.status} ${res.config.url}`;
+    return `[SSR] ${res.config.method.toUpperCase()} ${res.status} ${res.config.url}`;
 };
 
 export const RequestExtractor = (props) => {
@@ -90,5 +91,18 @@ export const BrowserDataProvider = (props) => {
         <DataProvider initialData={ initialData }>
             { props.children }
         </DataProvider>
+    );
+};
+
+export const useConfig = () => {
+    const requestContext = useContext(ConfigContext);
+
+};
+
+export const ConfigProvider = (props) => {
+    return (
+        <ConfigContext.Provider value={ props.config }>
+            { props.children }
+        </ConfigContext.Provider>
     );
 };

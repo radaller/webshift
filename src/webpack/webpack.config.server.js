@@ -2,7 +2,6 @@ import path from 'path';
 import nodeExternals from 'webpack-node-externals';
 import webpack from 'webpack';
 import { getIfUtils, removeEmpty } from 'webpack-config-utils';
-import CopyPlugin from "copy-webpack-plugin";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import LoadablePlugin from "@loadable/webpack-plugin";
 
@@ -13,11 +12,13 @@ const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV || 'deve
 export default removeEmpty({
     name: 'server',
     devtool: ifDevelopment('source-map'),
-    entry: ifDevelopment(`${__dirname}/render.js`, `${__dirname}/server.js`),
+    entry: ifDevelopment(`${__dirname}/server/server.js`, `${__dirname}/server/index.js`),
     resolve: {
         alias: {
             '@app': `${ process.cwd() }/src/App.js`,
-            '@render': `./render.js`,
+            '@render': `${__dirname}/server/render.js`,
+            '@core': `${__dirname}/server/core.js`,
+            '@document': `${__dirname}/server/document.js`,
             '@logger': `${__dirname}/server/logger.js`,
         },
     },
@@ -31,7 +32,6 @@ export default removeEmpty({
             allowlist: ['@app', 'webshift']
         })
     ]),
-    //externals: [SERVER_EXTERNALS],
 
     output: {
         path: path.resolve('build'),
@@ -66,11 +66,12 @@ export default removeEmpty({
         new webpack.ProvidePlugin({
             "React": "react",
         }),
+
         new webpack.optimize.LimitChunkCountPlugin({
             maxChunks: 1,
         }),
+
         new webpack.DefinePlugin(removeEmpty({
-            PRODUCTION: JSON.stringify(ifProduction()),
             BASE_PATH: JSON.stringify(config.BASE_PATH),
             FRAGMENT_ID: JSON.stringify(config.FRAGMENT_ID),
         })),
@@ -80,12 +81,6 @@ export default removeEmpty({
             writeToDisk: false,
         }),
 
-        new CopyPlugin({
-            patterns: [
-                { from: "src/*.png", to: "public/img/[name].[contenthash][ext]" },
-                { from: "src/*.ico", to: "public/img/[name].[contenthash][ext]" },
-            ],
-        }),
         ifProduction(
             new BundleAnalyzerPlugin({
                 analyzerMode: 'static',

@@ -6,13 +6,12 @@ import { RequestExtractor, DataProvider } from 'webshift';
 
 import * as App from '@app';
 import logger from '@logger';
-
-import Document from './_document';
+import Document from '@document';
 
 const variableName = '_initialData';
 
 export default ({ clientStats }) => {
-    return async (req, res) => {
+    return async (req, res, next) => {
 
         const routerContext = {};
         const extractor = new ChunkExtractor({ stats: clientStats, namespace: "header" });
@@ -35,7 +34,7 @@ export default ({ clientStats }) => {
         const data = {};
         result.map(req => Object.assign(data, req));
 
-        logger.verbose({ message: 'RequestExtractor', meta: { dataKeys: Object.keys(data)}});
+        logger.verbose({ message: '[RequestExtractor]', meta: { dataKeys: Object.keys(data)}});
 
         const ServerAppWithData = () =>
             <DataProvider initialData={ data }>
@@ -51,7 +50,7 @@ export default ({ clientStats }) => {
             />
         ];
 
-        logger.verbose({ message: 'ChunkExtractor', meta: { chunks: extractor.chunks } });
+        logger.verbose({ message: '[ChunkExtractor]', meta: { chunks: extractor.chunks } });
 
         res.send('<!DOCTYPE html>' + renderToString(
             <Document
@@ -62,5 +61,6 @@ export default ({ clientStats }) => {
                 FRAGMENT_ID={ FRAGMENT_ID }
             />
         ));
+        next();
     };
 };

@@ -11,7 +11,7 @@ const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV || 'deve
 export default removeEmpty({
     name: 'client',
     entry: {
-        main: `${__dirname}/client.js`,
+        main: `${__dirname}/client/index.js`,
     },
     resolve: {
         alias: {
@@ -23,7 +23,6 @@ export default removeEmpty({
 
     target: 'web',
     externalsType: 'umd',
-    //externals: [CLIENT_EXTERNALS],
 
     output: {
         path: path.resolve('build/public'),
@@ -65,7 +64,6 @@ export default removeEmpty({
             "React": "react",
         }),
         new webpack.DefinePlugin({
-            PRODUCTION: JSON.stringify(ifProduction()),
             BASE_PATH: JSON.stringify(config.BASE_PATH),
             FRAGMENT_ID: JSON.stringify(config.FRAGMENT_ID),
         }),
