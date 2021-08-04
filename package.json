@@ -1,6 +1,10 @@
 {
   "name": "webshift",
   "version": "0.58.0",
+  "description": "Build tool to enhance React based SPAs with SSR and frontend micro-services architecture",
+  "keywords": [],
+  "author": "Radaller",
+  "license": "MIT",
   "bin": {
     "webshift": "./dist/bin.js"
   },
@@ -70,5 +74,13 @@
     "jest": "^27.0.4",
     "jest-puppeteer": "^5.0.4",
     "puppeteer": "^9.1.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/radaller/webshift.git"
+  },
+  "bugs": {
+    "url": "https://github.com/radaller/webshift/issues"
+  },
+  "homepage": "https://github.com/radaller/webshift#readme"
 }

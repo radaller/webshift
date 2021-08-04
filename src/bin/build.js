@@ -1,9 +1,12 @@
+import dotenv from 'dotenv';
 import webpack from 'webpack';
 import serverConfig from '../webpack/webpack.config.server';
 import clientConfig from '../webpack/webpack.config.client';
 
+dotenv.config();
+
 export default (argv) => {
-    const compiler = webpack([clientConfig, serverConfig]);
+    const compiler = webpack([clientConfig(process.env), serverConfig(process.env)]);
     compiler.run((error, stats) => {
         if (stats) {
             process.stdout.write(`${stats.toString({

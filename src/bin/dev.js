@@ -15,10 +15,10 @@ export default (argv) => {
 
     const app = express();
 
-    const compiler = webpack([clientConfig, serverConfig]);
+    const compiler = webpack([clientConfig(process.env), serverConfig(process.env)]);
 
     const options = {
-        publicPath: clientConfig.output.publicPath,
+        publicPath: process.env.PUBLIC_PATH,
         serverSideRender: true,
         stats: {
             colors: true,

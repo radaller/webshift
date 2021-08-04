@@ -1,4 +1,3 @@
-import defaultConfig from "./webshift.config.constants";
 import merge from "webpack-merge";
 
 let customConfig;
@@ -9,4 +8,4 @@ try {
     customConfig = {};
 }
 
-export const config = merge(defaultConfig, customConfig);
+export const config = customConfig;

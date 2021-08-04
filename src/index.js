@@ -84,7 +84,7 @@ export const DataProvider = (props) => {
 };
 
 export const BrowserDataProvider = (props) => {
-    const namespace = props.namespace || "_initialData";
+    const namespace = props.namespace + "__INITIAL_DATA";
     const initialData = JSON.parse(document.getElementById(namespace).textContent);
 
     return (

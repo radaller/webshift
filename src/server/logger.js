@@ -22,7 +22,6 @@ const logger = createLogger({
     ),
     transports: [
         new transports.Console({
-            level: process.env.LOG_LEVEL ? process.env.LOG_LEVEL : 'info',
             handleExceptions: true,
         }),
     ],

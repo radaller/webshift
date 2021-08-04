@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default (props) => {
-    const { Headers, App, Scripts, esi_enabled, FRAGMENT_ID } = props;
+    const { Headers, App, Scripts, esi_enabled, fragment_id } = props;
 
     const Wrapper = (props) => {
         return esi_enabled ? props.children : (
@@ -16,7 +16,7 @@ export default (props) => {
 
     return (
         <Wrapper>
-            <div id={ FRAGMENT_ID }>
+            <div id={ fragment_id }>
                 <App />
             </div>
             <Scripts />

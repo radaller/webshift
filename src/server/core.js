@@ -7,15 +7,17 @@ import logger from "@logger";
 export default ({ clientStats }) => {
     const app = express();
 
+    logger.level = process.env.LOG_LEVEL;
     logger.info({
         message: '[Express]',
         meta: {
             env: {
                 HOST: process.env.HOST,
                 PORT: process.env.PORT,
-                BASE_PATH: process.env.BASE_PATH || '/',
-                NAMESPACE: process.env.NAMESPACE || 'fragment',
-                LOG_LEVEL: process.env.LOG_LEVEL || 'http',
+                PUBLIC_PATH: process.env.PUBLIC_PATH,
+                BASE_PATH: process.env.BASE_PATH,
+                FRAGMENT_ID: process.env.FRAGMENT_ID,
+                LOG_LEVEL: process.env.LOG_LEVEL,
             }
         }
     });
@@ -35,8 +37,8 @@ export default ({ clientStats }) => {
         next();
     });
 
-    app.use(BASE_PATH, express.static(path.resolve(__dirname, './public')));
-    app.use(BASE_PATH, render({ clientStats }));
+    app.use(process.env.PUBLIC_PATH, express.static(path.resolve(__dirname, './public')));
+    app.use('/', render({ clientStats }));
 
     return app;
 };

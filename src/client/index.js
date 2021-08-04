@@ -11,8 +11,8 @@ loadableReady(
     () => {
         ReactDOM.hydrate(
             <React.StrictMode>
-                <BrowserDataProvider>
-                    <BrowserRouter basename="/header">
+                <BrowserDataProvider namespace={ FRAGMENT_ID }>
+                    <BrowserRouter basename={ BASE_PATH }>
                         <App />
                     </BrowserRouter>
                 </BrowserDataProvider>
@@ -20,5 +20,5 @@ loadableReady(
             document.getElementById(FRAGMENT_ID)
         );
     },
-    { namespace: "header" }
+    { namespace: FRAGMENT_ID }
 );

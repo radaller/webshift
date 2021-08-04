@@ -8,17 +8,15 @@ import * as App from '@app';
 import logger from '@logger';
 import Document from '@document';
 
-const variableName = '_initialData';
-
 export default ({ clientStats }) => {
     return async (req, res, next) => {
 
         const routerContext = {};
-        const extractor = new ChunkExtractor({ stats: clientStats, namespace: "header" });
+        const extractor = new ChunkExtractor({ stats: clientStats, namespace: FRAGMENT_ID });
 
         const ServerApp = () =>
             <ChunkExtractorManager extractor={ extractor }>
-                <StaticRouter context={ routerContext } location={ req.url } basename="/header">
+                <StaticRouter context={ routerContext } location={ req.url } basename={ process.env.BASE_PATH }>
                     <App.default/>
                 </StaticRouter>
             </ChunkExtractorManager>;
@@ -44,10 +42,10 @@ export default ({ clientStats }) => {
         const Scripts = () => [
             ...extractor.getScriptElements(),
             <script
-                id={ variableName }
+                id={ `${ FRAGMENT_ID }__INITIAL_DATA` }
                 type={ "application/json" }
                 dangerouslySetInnerHTML={ { __html: JSON.stringify(data) } }
-            />
+            />,
         ];
 
         logger.verbose({ message: '[ChunkExtractor]', meta: { chunks: extractor.chunks } });
@@ -58,7 +56,7 @@ export default ({ clientStats }) => {
                 App={ ServerAppWithData }
                 Scripts={ Scripts }
                 esi_enabled={ req.header('esi') === 'true' }
-                FRAGMENT_ID={ FRAGMENT_ID }
+                fragment_id={ FRAGMENT_ID }
             />
         ));
         next();
