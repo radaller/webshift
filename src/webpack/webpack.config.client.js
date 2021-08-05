@@ -12,7 +12,7 @@ export default (env) => (
     {
         name: 'client',
         entry: {
-            main: `${__dirname}/client/index.js`,
+            main: `${__dirname}/client/entry.js`,
         },
         resolve: {
             alias: {
@@ -28,7 +28,7 @@ export default (env) => (
         output: {
             path: path.resolve('build/public'),
             filename: 'js/[name].[chunkhash].js',
-            publicPath: env.PUBLIC_PATH,
+            publicPath: '',
             assetModuleFilename: 'img/[name].[contenthash][ext][query]',
             chunkLoadingGlobal: '__LOADABLE_LOADED_CHUNKS__',
         },
@@ -37,7 +37,7 @@ export default (env) => (
             rules: [
                 {
                     test: /\.js$/,
-                    exclude: /node_modules/,
+                    exclude: /node_modules\/(?!webshift)/,
                     use: 'babel-loader'
                 },
                 {
@@ -65,8 +65,7 @@ export default (env) => (
                 "React": "react",
             }),
             new webpack.DefinePlugin({
-                FRAGMENT_ID: JSON.stringify(env.FRAGMENT_ID),
-                BASE_PATH: JSON.stringify(env.BASE_PATH),
+                FRAGMENT_ID: JSON.stringify(config.FRAGMENT_ID),
             }),
             ifProduction(
                 new LoadablePlugin({

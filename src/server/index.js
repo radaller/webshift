@@ -1,9 +1,6 @@
 import fs from 'fs';
-import dotenv from 'dotenv';
 
 import core from "@core";
-
-dotenv.config();
 
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3040;

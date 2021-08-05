@@ -12,7 +12,7 @@ loadableReady(
         ReactDOM.hydrate(
             <React.StrictMode>
                 <BrowserDataProvider namespace={ FRAGMENT_ID }>
-                    <BrowserRouter basename={ BASE_PATH }>
+                    <BrowserRouter basename={ document.getElementById(`${FRAGMENT_ID}__BASE_PATH`).textContent }>
                         <App />
                     </BrowserRouter>
                 </BrowserDataProvider>

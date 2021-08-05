@@ -1,42 +1,20 @@
 import path from 'path';
 import webpack from 'webpack';
 import nodeExternals from 'webpack-node-externals';
+import CopyPlugin from 'copy-webpack-plugin';
 
 export default {
     name: 'scripts',
     devtool: 'source-map',
     entry: {
         'bin': './src/bin/index.js',
-
-        'client/index': './src/client/index.js',
-        'client/logger': './src/client/logger.js',
-
-        'server/index': './src/server/index.js',
-        'server/core': './src/server/core.js',
-        'server/render': './src/server/render.js',
-        'server/document': './src/server/document.js',
-        'server/logger': './src/server/logger.js',
-
-        index: './src/index.js',
     },
     mode: 'development',
 
     target: 'node',
 
     externalsType: 'umd',
-    externals: [
-        nodeExternals(),
-        'react', 'react-dom', /^react-dom\/.+$/,
-        'react-router-dom',
-        /^@loadable\/.+$/,
-        /^@webshift\/.+$/,
-        'webshift',
-        '@app',
-        '@render',
-        '@logger',
-        '@document',
-        '@core'
-    ],
+    externals: [ nodeExternals() ],
 
     output: {
         path: path.resolve('dist'),
@@ -46,6 +24,11 @@ export default {
     },
 
     module: {
+        parser: {
+            javascript: {
+                commonjsMagicComments: true,
+            },
+        },
         rules: [
             {
                 test: /\.js$/,
@@ -61,6 +44,13 @@ export default {
     },
 
     plugins: [
+        new CopyPlugin({
+            patterns: [
+                { from: "src/client", to: "client" },
+                { from: "src/server", to: "server" },
+                { from: "src/index.js", to: "index.js" },
+            ],
+        }),
         new webpack.BannerPlugin({
             include: 'bin',
             banner: "#!/usr/bin/env node",

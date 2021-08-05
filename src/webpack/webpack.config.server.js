@@ -13,7 +13,7 @@ export default (env) => (
     {
         name: 'server',
         devtool: ifDevelopment('source-map'),
-        entry: ifDevelopment(`${__dirname}/server/core.js`, `${__dirname}/server/index.js`),
+        entry: ifDevelopment(`${__dirname}/server/core.js`, `${__dirname}/server/entry.js`),
         resolve: {
             alias: {
                 '@app': `${ process.cwd() }/src/App.js`,
@@ -38,7 +38,7 @@ export default (env) => (
             path: path.resolve('build'),
             filename: 'server.js',
             libraryTarget: 'umd',
-            publicPath: env.PUBLIC_PATH,
+            publicPath: ifDevelopment(env.PUBLIC_PATH, ''),
             assetModuleFilename: 'img/[name].[contenthash][ext][query]',
         },
 
@@ -51,7 +51,7 @@ export default (env) => (
             rules: [
                 {
                     test: /\.js$/,
-                    exclude: /node_modules/,
+                    exclude: /node_modules\/(?!webshift)/,
                     use: 'babel-loader'
                 },
                 {
@@ -74,7 +74,7 @@ export default (env) => (
             }),
 
             new webpack.DefinePlugin({
-                FRAGMENT_ID: JSON.stringify(env.FRAGMENT_ID),
+                FRAGMENT_ID: JSON.stringify(config.FRAGMENT_ID),
             }),
 
             new LoadablePlugin({

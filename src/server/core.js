@@ -7,7 +7,6 @@ import logger from "@logger";
 export default ({ clientStats }) => {
     const app = express();
 
-    logger.level = process.env.LOG_LEVEL;
     logger.info({
         message: '[Express]',
         meta: {
@@ -16,7 +15,6 @@ export default ({ clientStats }) => {
                 PORT: process.env.PORT,
                 PUBLIC_PATH: process.env.PUBLIC_PATH,
                 BASE_PATH: process.env.BASE_PATH,
-                FRAGMENT_ID: process.env.FRAGMENT_ID,
                 LOG_LEVEL: process.env.LOG_LEVEL,
             }
         }

@@ -19,6 +19,8 @@ export default (props) => {
             <div id={ fragment_id }>
                 <App />
             </div>
+            <script id={`${fragment_id}__PUBLIC_PATH`}>{process.env.PUBLIC_PATH}</script>
+            <script id={`${fragment_id}__BASE_PATH`}>{process.env.BASE_PATH}</script>
             <Scripts />
         </Wrapper>
     );

@@ -12,7 +12,7 @@ export default ({ clientStats }) => {
     return async (req, res, next) => {
 
         const routerContext = {};
-        const extractor = new ChunkExtractor({ stats: clientStats, namespace: FRAGMENT_ID });
+        const extractor = new ChunkExtractor({ stats: clientStats, namespace: FRAGMENT_ID, publicPath: process.env.PUBLIC_PATH});
 
         const ServerApp = () =>
             <ChunkExtractorManager extractor={ extractor }>
