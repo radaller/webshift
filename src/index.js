@@ -51,7 +51,7 @@ export const useServerSideEffect = (dataKey, effect, dependencies) => {
 const getResponseLogObject = (res) => {
     const { headers } = res;
     return {
-        message: `[Request] ${res.config.url}`,
+        message: `[HttpClient][Request] ${res.config.url}`,
         meta: {
             method: res.config.method.toUpperCase(),
             status: res.status,
@@ -62,7 +62,9 @@ const getResponseLogObject = (res) => {
 };
 
 const getResponseLogMessage = (res) => {
-    return `[SSR] ${res.config.method.toUpperCase()} ${res.status} ${res.config.url}`;
+    return {
+        message: `[HttpClient] ${res.config.method.toUpperCase()} ${res.status} ${res.config.url}`
+    }
 };
 
 export const RequestExtractor = (props) => {

@@ -7,7 +7,7 @@ export default {
     name: 'scripts',
     devtool: 'source-map',
     entry: {
-        'bin': './src/bin/index.js',
+        'bin': './src/bin/entry.js',
     },
     mode: 'development',
 

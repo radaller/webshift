@@ -1,4 +1,3 @@
-import dotenv from 'dotenv';
 import express from 'express';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
@@ -7,15 +6,13 @@ import webpackHotServerMiddleware from 'webpack-hot-server-middleware';
 import serverConfig from '../webpack/webpack.config.server';
 import clientConfig from '../webpack/webpack.config.client';
 
-dotenv.config();
-
 export default (argv) => {
     const HOST = process.env.HOST || 'localhost';
     const PORT = process.env.PORT || 3040;
 
     const app = express();
 
-    const compiler = webpack([clientConfig(process.env), serverConfig(process.env)]);
+    const compiler = webpack([clientConfig, serverConfig]);
 
     const options = {
         publicPath: process.env.PUBLIC_PATH,

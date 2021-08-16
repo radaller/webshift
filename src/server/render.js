@@ -12,10 +12,10 @@ export default ({ clientStats }) => {
     return async (req, res, next) => {
 
         const routerContext = {};
-        const extractor = new ChunkExtractor({ stats: clientStats, namespace: FRAGMENT_ID, publicPath: process.env.PUBLIC_PATH});
+        const chunkExtractor = new ChunkExtractor({ stats: clientStats, namespace: FRAGMENT_ID, publicPath: process.env.PUBLIC_PATH});
 
         const ServerApp = () =>
-            <ChunkExtractorManager extractor={ extractor }>
+            <ChunkExtractorManager extractor={ chunkExtractor }>
                 <StaticRouter context={ routerContext } location={ req.url } basename={ process.env.BASE_PATH }>
                     <App.default/>
                 </StaticRouter>
@@ -40,7 +40,7 @@ export default ({ clientStats }) => {
             </DataProvider>;
 
         const Scripts = () => [
-            ...extractor.getScriptElements(),
+            ...chunkExtractor.getScriptElements(),
             <script
                 id={ `${ FRAGMENT_ID }__INITIAL_DATA` }
                 type={ "application/json" }
@@ -48,7 +48,7 @@ export default ({ clientStats }) => {
             />,
         ];
 
-        logger.verbose({ message: '[ChunkExtractor]', meta: { chunks: extractor.chunks } });
+        logger.verbose({ message: '[ChunkExtractor]', meta: { chunks: chunkExtractor.chunks } });
 
         res.send('<!DOCTYPE html>' + renderToString(
             <Document

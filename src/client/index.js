@@ -7,18 +7,22 @@ import App from '@app';
 
 import { BrowserDataProvider } from 'webshift';
 
+const BASE_PATH = document.getElementById(`${FRAGMENT_ID}__BASE_PATH`).textContent;
+const LOADABLE_NAMESPACE = FRAGMENT_ID;
+const ROOT_ELEMENT_ID = FRAGMENT_ID;
+
 loadableReady(
     () => {
         ReactDOM.hydrate(
             <React.StrictMode>
-                <BrowserDataProvider namespace={ FRAGMENT_ID }>
-                    <BrowserRouter basename={ document.getElementById(`${FRAGMENT_ID}__BASE_PATH`).textContent }>
+                <BrowserDataProvider namespace={ LOADABLE_NAMESPACE }>
+                    <BrowserRouter basename={ BASE_PATH }>
                         <App />
                     </BrowserRouter>
                 </BrowserDataProvider>
             </React.StrictMode>,
-            document.getElementById(FRAGMENT_ID)
+            document.getElementById(ROOT_ELEMENT_ID)
         );
     },
-    { namespace: FRAGMENT_ID }
+    { namespace: LOADABLE_NAMESPACE }
 );
