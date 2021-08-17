@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default (props) => {
-    const { Headers, App, Scripts, esi_enabled, fragment_id } = props;
+    const { Headers, App, scripts, esi_enabled, fragment_id, initialData } = props;
 
     const Wrapper = (props) => {
         return esi_enabled ? props.children : (
@@ -21,7 +21,12 @@ export default (props) => {
             </div>
             <script id={`${fragment_id}__PUBLIC_PATH`}>{process.env.PUBLIC_PATH}</script>
             <script id={`${fragment_id}__BASE_PATH`}>{process.env.BASE_PATH}</script>
-            <Scripts />
+            { scripts }
+            <script
+                id={ `${fragment_id}__INITIAL_DATA` }
+                type={ "application/json" }
+                dangerouslySetInnerHTML={ { __html: JSON.stringify(initialData) } }
+            />,
         </Wrapper>
     );
 };

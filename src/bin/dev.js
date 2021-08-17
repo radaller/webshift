@@ -34,7 +34,7 @@ export default (argv) => {
     app.set('cacheControl', false);
 
     app.use((req,res,next) => {
-        console.log(`[DevServer] ${req.method} ${req.get('Host')} ${req.originalUrl}`);
+        console.log(`[DevServer][Asset] ${req.method} ${req.get('Host')} ${req.originalUrl}`);
         next();
     });
 

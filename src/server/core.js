@@ -8,7 +8,7 @@ export default ({ clientStats }) => {
     const app = express();
 
     logger.info({
-        message: '[Express]',
+        message: '[Express][Env]',
         meta: {
             env: {
                 HOST: process.env.HOST,
