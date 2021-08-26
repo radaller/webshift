@@ -106,7 +106,16 @@ const MyComponent = () => {
 ```
 
 ### @logger
+```javascript
+import { useLogger } from 'webshift';
 
+const MyComponent = () => {
+    const logger = useLogger();
+    logger.verbose({message: "[Render]", meta: { component: 'MyComponent'}});
+
+    return <div>Some Text</div>;
+};
+```
 
 ## Features in Progress
 
@@ -116,35 +125,51 @@ const MyComponent = () => {
 
 ```javascript
 module.exports = {
-    CLIENT_EXTERNALS: [
-        "@emotion/react",
-        "@emotion/styled",
-        "@loadable/component",
-        "react",
-        "react-dom",
-        "react-router",
-        "react-router-dom",
-        "styled-system",
-    ], // default [], all dependencies are bundled
-    SERVER_EXTERNALS: [
-        "express"
-    ]  // default [], all dependencies are bundled
+    common: {
+        resolve: {
+            alias: {
+                '@app': `${ process.cwd() }/src/App.js`,
+            },
+        },
+    },
+    client: {
+        resolve: {
+            alias: {
+                '@logger': `${__dirname}/client/logger.js`,
+            },
+        },
+        externals: [
+            "react",
+            "react-dom",
+            "react-router",
+            "react-router-dom",
+        ],
+    },
+    server: {
+        resolve: {
+            alias: {
+                '@render': `${__dirname}/server/render.js`,
+                '@core': `${__dirname}/server/core.js`,
+                '@document': `${__dirname}/server/document.js`,
+                '@logger': `${__dirname}/server/logger.js`,
+            },
+        },
+    }
 };
 ```
 
 ### Advanced .env Configuration
 ```text
-NODE_ENV=production
-APP_SERVER_HOST=localhost
-APP_SERVER_PORT=3040
+# Webserver and assets 
+NODE_ENV=[production|development]
+HOST=localhost
+PORT=3040
+PUBLIC_PATH=/main/
+BASE_PATH=
 
-PUBLIC_PATH=/
-BASE_PATH=/
-
-FRAGMENT_NAMESPACE=main
-
-LOG_COLOR=true
+# Application logging
 LOG_LEVEL=[info|http|verbose|debug]
+LOG_TYPE=[json|message]
 ```
 
 ### Bundle Analysis

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default (props) => {
     const { Headers, App, scripts, esi_enabled, fragment_id, initialData } = props;
 
@@ -26,7 +24,7 @@ export default (props) => {
                 id={ `${fragment_id}__INITIAL_DATA` }
                 type={ "application/json" }
                 dangerouslySetInnerHTML={ { __html: JSON.stringify(initialData) } }
-            />,
+            />
         </Wrapper>
     );
 };

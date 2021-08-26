@@ -1,12 +1,10 @@
-import React from "react";
-
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, createContext } from "react";
 
 import logger from "@logger";
 
-export const DataContext = React.createContext(false);
-export const RequestContext = React.createContext(false);
-export const ConfigContext = React.createContext(false);
+export const DataContext = createContext(false);
+export const RequestContext = createContext(false);
+export const ConfigContext = createContext(false);
 
 export const useServerSideEffect = (dataKey, effect, dependencies) => {
     const requestContext = useContext(RequestContext);
@@ -30,19 +28,21 @@ export const useServerSideEffect = (dataKey, effect, dependencies) => {
     }
 
     useEffect(() => {
-        if (!dataContext[dataKey]) {
-            effect()
-                .then((res) => {
-                    logger.http(getResponseLogMessage(res));
-                    logger.debug(getResponseLogObject(res));
-                    setData(res.data);
-                })
-                .catch((error) => {
-                    logger.error();
-                    setError(error);
-                });
+        if (data === null) {
+            if (!dataContext[dataKey]) {
+                effect()
+                    .then((res) => {
+                        logger.http(getResponseLogMessage(res));
+                        logger.debug(getResponseLogObject(res));
+                        setData(res.data);
+                    })
+                    .catch((error) => {
+                        logger.error();
+                        setError(error);
+                    });
+            }
+            delete dataContext[dataKey];
         }
-        delete dataContext[dataKey];
     }, dependencies);
 
     return [data, error];

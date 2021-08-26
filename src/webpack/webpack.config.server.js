@@ -51,7 +51,16 @@ export default {
             {
                 test: /\.js$/,
                 exclude: /node_modules\/(?!webshift)/,
-                use: 'babel-loader'
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            plugins: [
+                                "@babel/plugin-transform-runtime"
+                            ],
+                        },
+                    }
+                ]
             },
             {
                 test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
@@ -64,10 +73,6 @@ export default {
         ]
     },
     plugins: removeEmpty([
-        new webpack.ProvidePlugin({
-            "React": "react",
-        }),
-
         new webpack.optimize.LimitChunkCountPlugin({
             maxChunks: 1,
         }),

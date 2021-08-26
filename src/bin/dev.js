@@ -39,7 +39,7 @@ export default (argv) => {
     });
 
     app.use('/', webpackDevMiddleware(compiler, options));
-    app.use('/', webpackHotMiddleware(compiler.compilers.find(cmp => cmp.name === 'client')));
+    app.use('/', webpackHotMiddleware(compiler.compilers.find(conf => conf.name === 'client')));
     app.use('/', webpackHotServerMiddleware(compiler));
     app.listen(PORT, HOST, () => {
         console.log(`[DevServer] Started: http://${HOST}:${PORT}`);

@@ -1,5 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { StrictMode } from 'react';
+import { hydrate } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { loadableReady } from '@loadable/component';
 
@@ -13,16 +13,20 @@ const ROOT_ELEMENT_ID = FRAGMENT_ID;
 
 loadableReady(
     () => {
-        ReactDOM.hydrate(
-            <React.StrictMode>
+        hydrate(
+            <StrictMode>
                 <BrowserDataProvider namespace={ LOADABLE_NAMESPACE }>
                     <BrowserRouter basename={ BASE_PATH }>
                         <App />
                     </BrowserRouter>
                 </BrowserDataProvider>
-            </React.StrictMode>,
+            </StrictMode>,
             document.getElementById(ROOT_ELEMENT_ID)
         );
     },
     { namespace: LOADABLE_NAMESPACE }
 );
+
+// if (module['hot']) {
+//     module['hot'].accept();
+// }

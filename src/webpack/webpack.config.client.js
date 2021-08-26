@@ -1,5 +1,6 @@
 import path from 'path';
 import webpack from 'webpack';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import merge from "webpack-merge";
 import { getIfUtils, removeEmpty } from 'webpack-config-utils';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
@@ -9,10 +10,14 @@ import { config } from './webpack.config.common';
 
 const { ifDevelopment, ifProduction } = getIfUtils(process.env.NODE_ENV || 'development');
 
+const babelPlugins = [];
+ifDevelopment() && babelPlugins.push('react-refresh/babel');
+
 export default {
     name: 'client',
+    devtool: ifDevelopment('source-map'),
     entry: {
-        main: `${__dirname}/client/entry.js`,
+        main: removeEmpty([ifDevelopment('webpack-hot-middleware/client'), `${__dirname}/client/entry.js`]),
     },
     resolve: {
         alias: {
@@ -38,7 +43,14 @@ export default {
             {
                 test: /\.js$/,
                 exclude: /node_modules\/(?!webshift)/,
-                use: 'babel-loader'
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            plugins: babelPlugins
+                        },
+                    }
+                ]
             },
             {
                 test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
@@ -61,12 +73,19 @@ export default {
         },
     },
     plugins: removeEmpty([
-        new webpack.ProvidePlugin({
-            "React": "react",
-        }),
         new webpack.DefinePlugin({
             FRAGMENT_ID: JSON.stringify(config.FRAGMENT_ID),
         }),
+        ifDevelopment(
+            new webpack.HotModuleReplacementPlugin()
+        ),
+        ifDevelopment(
+            new ReactRefreshWebpackPlugin({
+                overlay: {
+                    sockIntegration: 'whm',
+                },
+            }),
+        ),
         ifProduction(
             new LoadablePlugin({
                 filename: '../stats.json'
