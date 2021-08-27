@@ -1,6 +1,6 @@
 {
   "name": "webshift",
-  "version": "0.59.0",
+  "version": "0.60.0",
   "description": "Build tool to enhance React based SPAs with SSR and frontend micro-services architecture",
   "keywords": [],
   "author": "Radaller",
