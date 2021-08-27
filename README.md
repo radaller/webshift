@@ -105,7 +105,7 @@ const MyComponent = () => {
 };
 ```
 
-### @logger
+### useLogger()
 ```javascript
 import { useLogger } from 'webshift';
 
