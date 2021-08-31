@@ -27,25 +27,29 @@ npm init webshift@latest <working-dir>
 ```
 
 ### Start Development
-> 
-> * Bundles ./src/App.js into memory with **webpack-dev-middleware**
-> * Provides Hot Module Replacement with **webpack-hot-middleware**
-
 ```bash
 npm start
 ```
+> 
+> * Starts express server for development
+> * Bundles ./src/App.js into memory with **webpack-dev-middleware**
+> * "Fast Refresh" (also previously known as Hot Reloading) for React 
+>   * webpack-hot-middleware
+>   * react-refresh-webpack-plugin
+> * Server Fast Reload with webpack-hot-server
+
 
 ### Production Build
+```bash
+npm run build && npm run build:start
+```
 >
 > * Bundles ./src/App.js into the **./build** folder
 > * Optimizes artifacts and includes hashes into filenames
 
 
-```test
-npm run build && npm run build:start
-
-==>
-
+```text
+# Output:
 ../
 ├── build/
 │   ├── analyse/                        <-- bundle details (size, dependencies)
@@ -88,9 +92,8 @@ export default (props) => {
 ```
 
 ### useServerSideEffect()
-> Fetching data on the server.
-> 
-> Fetch library should be universal e.g. axios
+> * Fetch data during server side rendering
+> * Use universal library e.g. axios
 
 ```javascript
 import axios from 'axios';
@@ -106,6 +109,8 @@ const MyComponent = () => {
 ```
 
 ### useLogger()
+> * Logs during server side rendering
+> * Logs to Browser
 ```javascript
 import { useLogger } from 'webshift';
 
@@ -115,6 +120,16 @@ const MyComponent = () => {
 
     return <div>Some Text</div>;
 };
+```
+
+### "Fast Refresh" Issues
+> Don't use lambda functions
+```javascript
+// Correct
+export default function Welcome() {  }
+
+// "Fast Refresh" Fails
+export default () => {  }
 ```
 
 ## Features in Progress
@@ -160,16 +175,27 @@ module.exports = {
 
 ### Advanced .env Configuration
 ```text
-# Webserver and assets 
-NODE_ENV=[production|development]
+# Webserver and assets
+# [production|development]
+NODE_ENV=development
+
+# HOST and PORT of Express Server
 HOST=localhost
 PORT=3040
-PUBLIC_PATH=/main/
+
+# React Application Base Path 
 BASE_PATH=
 
-# Application logging
-LOG_LEVEL=[info|http|verbose|debug]
-LOG_TYPE=[json|message]
+# Path for serving static assets
+PUBLIC_PATH=/main/
+
+# Server log output format
+# [json|message]
+LOG_TYPE=json
+
+# Server log output level
+# [info|http|verbose|debug]
+LOG_LEVEL=http
 ```
 
 ### Bundle Analysis
